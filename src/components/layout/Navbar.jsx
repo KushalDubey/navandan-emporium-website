@@ -107,9 +107,16 @@ export const Navbar = ({ onOpenMobileMenu }) => {
                       }`} />
                     </button>
 
-                    {servicesOpen && (
-                      <div className="absolute top-full left-0 w-[22rem] pt-2 z-50">
-                        <div className="rounded-2xl p-3 bg-[#0D1321]/98 backdrop-blur-2xl border border-white/[0.12] shadow-[0_25px_70px_rgba(0,0,0,0.7)]">
+                   {servicesOpen && (
+  <div className="absolute top-full left-0 w-[22rem] pt-2 z-[100]">
+    <div
+      className="rounded-2xl p-3 border border-[#34415A] shadow-[0_25px_70px_rgba(0,0,0,0.9)]"
+      style={{
+        backgroundColor: '#080D18',
+        opacity: 1,
+        backdropFilter: 'none',
+      }}
+    >
                           <div className="flex items-center gap-2 px-3 py-2 mb-2">
                             <Sparkles className="w-3.5 h-3.5 text-[#70B5FF]" />
                             <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400 font-bold">
