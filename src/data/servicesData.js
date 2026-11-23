@@ -41,7 +41,7 @@ export const servicesData = [
     deliverables: [
       "Cross-Channel Media & Budget Blueprint",
       "Technical SEO Audit & Ongoing Optimization Roadmap",
-      "High-Converting Landing Page Architectures",
+      "Landing pages with clear messaging and calls to action",
       "Custom Executive Reporting & KPI Dashboards",
     ],
   },
@@ -59,7 +59,7 @@ export const servicesData = [
       "Headless CMS & High-Throughput Microservices",
       "Component-Driven UI/UX Design System Coding",
       "Cloud Infrastructure, CI/CD & DevOps Automation",
-      "Enterprise Security, WCAG Accessibility & Zero-Lag Core Web Vitals",
+      "Security, accessibility and website performance reviews",
     ],
     deliverables: [
       "Production-Ready, Modular Codebase",

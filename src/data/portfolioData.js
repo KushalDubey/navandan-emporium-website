@@ -6,13 +6,12 @@ export const portfolioCategories = [
   "Mobile Applications",
   "ERP & Business Automation",
   "Social Media & Content Production",
-  "Performance Marketing & Lead Generation",
 ];
 
 export const portfolioData = [
   {
     id: "lumina-brand-system",
-    title: "Project Lumina: Brand Identity & Visual Language",
+    title: "Brand Identity & Visual Design",
     category: "Brand Identity & Creative Design",
     type: "Brand Identity Showcase",
     badge: "Concept Project",
@@ -32,7 +31,7 @@ export const portfolioData = [
   },
   {
     id: "strata-omnichannel-campaign",
-    title: "Project Strata: Multi-Channel Launch Campaign",
+    title: "Digital Marketing Campaign",
     category: "Digital Marketing Campaigns",
     type: "Advertising Campaign Showcase",
     badge: "Agency Demonstration",
@@ -52,7 +51,7 @@ export const portfolioData = [
   },
   {
     id: "vanguard-commerce-platform",
-    title: "Project Vanguard: Modern E-Commerce Platform",
+    title: "Website & E-commerce Design",
     category: "Website & E-commerce Development",
     type: "Web & Storefront Showcase",
     badge: "Concept Project",
@@ -72,7 +71,7 @@ export const portfolioData = [
   },
   {
     id: "orbit-enterprise-mobile",
-    title: "Project Orbit: Executive Mobile Application",
+    title: "Mobile Application Design",
     category: "Mobile Applications",
     type: "Mobile Experience Showcase",
     badge: "Concept Project",
@@ -92,7 +91,7 @@ export const portfolioData = [
   },
   {
     id: "nexus-erp-automation",
-    title: "Project Nexus: Operations & ERP Management Hub",
+    title: "ERP & Business Automation",
     category: "ERP & Business Automation",
     type: "Business Operations Showcase",
     badge: "Agency Demonstration",
@@ -112,7 +111,7 @@ export const portfolioData = [
   },
   {
     id: "kinetic-social-studio",
-    title: "Project Kinetic: Social Media & Content Suite",
+    title: "Social Media Content Design",
     category: "Social Media & Content Production",
     type: "Social Media Content Showcase",
     badge: "Concept Project",
@@ -130,24 +129,4 @@ export const portfolioData = [
     ],
     status: "Content Showcase",
   },
-  {
-    id: "pulse-performance-funnel",
-    title: "Project Pulse: Marketing Analytics & Lead Funnel",
-    category: "Performance Marketing & Lead Generation",
-    type: "Performance Marketing Showcase",
-    badge: "Agency Demonstration",
-    mockupType: "pulse",
-    visualHighlight: "Visual Lead Funnel, Conversion Trends & Advertising ROI",
-    summary: "An illustrative marketing performance dashboard featuring a visual customer lead funnel, conversion trend analytics, and cost-per-lead tracking across advertising campaigns.",
-    challenge: "Business owners struggle to understand where their marketing budget goes without clear, visual tracking connecting ad clicks to real inquiries and sales.",
-    solution: "Built a clear, intuitive performance dashboard that illustrates the path from ad impression to conversion, highlighting key metrics like Cost Per Lead (CPL) and conversion rates.",
-    techStack: ["Marketing Dashboard", "Visual Lead Funnel", "Conversion Analytics", "CPL Tracking", "Campaign ROI"],
-    deliverables: [
-      "Interactive multi-stage customer lead funnel visualization",
-      "Illustrative campaign metrics dashboard (impressions, clicks, leads)",
-      "Conversion rate trend analysis charts and benchmarks",
-      "Lead qualification form architecture blueprint",
-    ],
-    status: "Funnel Demonstration",
-  },
-];
+  ];

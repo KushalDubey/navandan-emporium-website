@@ -43,7 +43,7 @@ export const PortfolioPage = () => {
           <div className="space-y-1.5 text-center sm:text-left">
             <h3 className="text-2xl font-bold text-[#F5F7FC]">Have a Specific Project in Mind?</h3>
             <p className="text-sm text-[#A8B1C2]">
-              Our multidisciplinary team can prepare a custom solution blueprint tailored to your business goals.
+              Tell us what you would like to create or improve. We can discuss a practical approach for your business.
             </p>
           </div>
           <Button to="/contact" variant="primary" size="md" icon={ArrowUpRight}>

@@ -1,14 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Menu, 
-  X, 
-  ChevronDown, 
-  Sparkles, 
-  Layers, 
-  TrendingUp, 
-  Code2, 
-  Cpu, 
+import {
+  Menu,
+  ChevronDown,
+  Sparkles,
+  Layers,
+  TrendingUp,
+  Code2,
+  Cpu,
   ArrowUpRight,
   MessageSquare,
   Phone
@@ -23,14 +23,13 @@ export const Navbar = ({ onOpenMobileMenu }) => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdown on route change
   useEffect(() => {
     setServicesOpen(false);
   }, [location.pathname]);
@@ -39,103 +38,117 @@ export const Navbar = ({ onOpenMobileMenu }) => {
     'Branding & Creative': Layers,
     'Digital Marketing & Growth': TrendingUp,
     'Website & App Development': Code2,
-    'ERP, CRM & Business Automation': Cpu,
+    'ERP, CRM & Business Automation': Cpu
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-[#090B12]/92 backdrop-blur-2xl border-b border-white/[0.1] shadow-[0_10px_35px_rgba(0,0,0,0.6)] py-3.5'
-          : 'bg-transparent py-5 sm:py-6'
+          ? 'bg-[#080B14]/95 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.4)]'
+          : 'bg-[#080B14]/75 backdrop-blur-xl'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo / Brand Mark */}
-          <Link to="/" className="flex items-center gap-3.5 group">
-            <div className="relative flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-[#3898FF] via-[#4F75FF] to-[#8B5CF6] p-0.5 shadow-[0_0_25px_rgba(56,152,255,0.45)] group-hover:shadow-[0_0_35px_rgba(56,152,255,0.7)] transition-all duration-300">
-              <div className="w-full h-full bg-[#090B12] rounded-[14px] flex items-center justify-center">
-                <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#3898FF] to-[#8B5CF6] text-sm tracking-wider">
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#3898FF]/50 to-transparent" />
+
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`flex items-center justify-between gap-5 transition-all duration-500 ${
+          scrolled ? 'h-[72px]' : 'h-[88px]'
+        }`}>
+
+          {/* Brand */}
+          <Link to="/" className="flex items-center gap-3 group shrink-0">
+            <div className="relative w-12 h-12 rounded-[17px] p-[1.5px] bg-gradient-to-br from-[#3898FF] via-[#5865F2] to-[#9B5CFF] shadow-[0_0_25px_rgba(56,152,255,0.22)] group-hover:shadow-[0_0_35px_rgba(56,152,255,0.5)] transition-all duration-300">
+              <div className="w-full h-full rounded-[15px] bg-[#090C16] flex items-center justify-center">
+                <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#3898FF] to-[#A78BFA] text-lg tracking-wide">
                   NE
                 </span>
               </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-base tracking-tight text-[#F5F7FC] group-hover:text-[#3898FF] transition-colors">
+
+            <div className="flex flex-col leading-none">
+              <span className="text-[17px] font-extrabold tracking-tight text-white group-hover:text-[#70B5FF] transition-colors">
                 NAVANDAN
               </span>
-              <span className="text-[10px] font-mono tracking-widest text-[#A8B1C2] uppercase -mt-1 font-semibold">
+              <span className="mt-1 text-[10px] font-mono font-semibold tracking-[0.22em] text-slate-400">
                 EMPORIUM
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5 lg:gap-2">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
             {navigationData.links.map((link) => {
               if (link.children) {
+                const active = location.pathname.startsWith('/services');
+
                 return (
                   <div
                     key={link.label}
-                    className="relative"
+                    className="relative py-3"
                     onMouseEnter={() => setServicesOpen(true)}
                     onMouseLeave={() => setServicesOpen(false)}
                   >
                     <button
-                      className={`flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl transition-all ${
-                        location.pathname.startsWith('/services')
-                          ? 'text-[#3898FF] bg-[#3898FF]/15 shadow-sm'
-                          : 'text-[#A8B1C2] hover:text-[#F5F7FC] hover:bg-white/[0.06]'
-                      }`}
-                      onClick={() => setServicesOpen(!servicesOpen)}
+                      type="button"
+                      onClick={() => setServicesOpen((value) => !value)}
+                      onFocus={() => setServicesOpen(true)}
                       aria-expanded={servicesOpen}
+                      aria-haspopup="true"
+                      className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                        active || servicesOpen
+                          ? 'text-[#70B5FF] bg-[#3898FF]/10'
+                          : 'text-slate-300 hover:text-white hover:bg-white/[0.06]'
+                      }`}
                     >
-                      <span>{link.label}</span>
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          servicesOpen ? 'rotate-180 text-[#3898FF]' : 'text-[#A8B1C2]'
-                        }`}
-                      />
+                      {link.label}
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${
+                        servicesOpen ? 'rotate-180 text-[#70B5FF]' : ''
+                      }`} />
                     </button>
 
-                    {/* Services Dropdown */}
                     {servicesOpen && (
-                      <div className="absolute top-full left-0 w-88 pt-2.5 transition-all duration-200">
-                        <div className="p-3 rounded-2xl bg-[#101522] border border-white/[0.12] backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] space-y-1">
-                          <div className="text-[11px] font-mono uppercase tracking-wider text-[#A8B1C2] px-3 py-1.5 font-bold">
-                            Core Capabilities
+                      <div className="absolute top-full left-0 w-[22rem] pt-2 z-50">
+                        <div className="rounded-2xl p-3 bg-[#0D1321]/98 backdrop-blur-2xl border border-white/[0.12] shadow-[0_25px_70px_rgba(0,0,0,0.7)]">
+                          <div className="flex items-center gap-2 px-3 py-2 mb-2">
+                            <Sparkles className="w-3.5 h-3.5 text-[#70B5FF]" />
+                            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400 font-bold">
+                              Explore Our Services
+                            </span>
                           </div>
-                          <div className="space-y-1">
-                            {link.children.map((sub) => {
-                              const IconComponent = serviceIcons[sub.label] || Sparkles;
-                              const isActive = location.pathname === sub.path;
-                              return (
-                                <Link
-                                  key={sub.path}
-                                  to={sub.path}
-                                  className={`flex items-start gap-3.5 p-3 rounded-xl transition-all group ${
-                                    isActive
-                                      ? 'bg-[#3898FF]/20 border border-[#3898FF]/40 text-[#F5F7FC]'
-                                      : 'hover:bg-[#141B2B] text-[#A8B1C2] hover:text-[#F5F7FC]'
-                                  }`}
-                                >
-                                  <div className="mt-0.5 p-2 rounded-lg bg-[#3898FF]/15 text-[#3898FF] group-hover:bg-[#3898FF]/25 transition-colors">
-                                    <IconComponent className="w-4 h-4" />
+
+                          {link.children.map((sub) => {
+                            const Icon = serviceIcons[sub.label] || Sparkles;
+                            const activeSub = location.pathname === sub.path;
+
+                            return (
+                              <Link
+                                key={sub.path}
+                                to={sub.path}
+                                className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group ${
+                                  activeSub
+                                    ? 'bg-[#3898FF]/15 border border-[#3898FF]/20'
+                                    : 'border border-transparent hover:bg-white/[0.06] hover:border-white/[0.07]'
+                                }`}
+                              >
+                                <div className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center bg-gradient-to-br from-[#3898FF]/20 to-[#8B5CF6]/15 text-[#70B5FF] group-hover:from-[#3898FF]/30 group-hover:to-[#8B5CF6]/25 transition-all">
+                                  <Icon className="w-5 h-5" />
+                                </div>
+
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="text-xs font-bold text-white group-hover:text-[#70B5FF] transition-colors">
+                                      {sub.label}
+                                    </span>
+                                    <ArrowUpRight className="w-3.5 h-3.5 text-[#70B5FF] opacity-0 group-hover:opacity-100 transition-opacity" />
                                   </div>
-                                  <div className="flex-1 min-w-0">
-                                    <div className="text-xs font-bold text-[#F5F7FC] group-hover:text-[#3898FF] transition-colors flex items-center justify-between">
-                                      <span>{sub.label}</span>
-                                      <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-[#3898FF]" />
-                                    </div>
-                                    <p className="text-[11px] text-[#A8B1C2] line-clamp-1 mt-0.5">
-                                      {sub.description}
-                                    </p>
-                                  </div>
-                                </Link>
-                              );
-                            })}
-                          </div>
+                                  <p className="text-[11px] text-slate-400 mt-1 line-clamp-1">
+                                    {sub.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
@@ -143,64 +156,68 @@ export const Navbar = ({ onOpenMobileMenu }) => {
                 );
               }
 
-              const isActive = location.pathname === link.path;
+              const active = location.pathname === link.path;
+
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all ${
-                    isActive
-                      ? 'text-[#3898FF] bg-[#3898FF]/15 shadow-sm'
-                      : 'text-[#A8B1C2] hover:text-[#F5F7FC] hover:bg-white/[0.06]'
+                  className={`relative px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                    active
+                      ? 'text-[#70B5FF] bg-[#3898FF]/10'
+                      : 'text-slate-300 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
                   {link.label}
+                  {active && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] rounded-full bg-gradient-to-r from-[#3898FF] to-[#8B5CF6]" />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Quick Action Button & Contacts */}
-          <div className="flex items-center gap-3">
-            {/* WhatsApp Quick Icon */}
+          {/* Contact Actions */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
               href={siteConfig.whatsappChatLink}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Direct WhatsApp Chat"
-              className="hidden lg:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold transition-all shadow-sm"
+              aria-label="Chat with us on WhatsApp"
+              className="hidden lg:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/[0.09] border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/[0.17] hover:border-emerald-400/50 transition-all duration-300 text-xs font-semibold"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>WhatsApp</span>
+              WhatsApp
             </a>
 
-            {/* Direct Phone Link */}
             <a
               href={siteConfig.telLink}
               aria-label="Call Navandan Emporium"
-              className="hidden xl:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#141B2B] hover:bg-white/[0.1] text-[#F5F7FC] border border-white/[0.1] text-xs font-mono font-semibold transition-all shadow-sm"
+              className="hidden xl:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.045] border border-white/[0.09] text-slate-200 hover:border-[#3898FF]/40 hover:text-white transition-all duration-300 text-xs font-semibold"
             >
-              <Phone className="w-3.5 h-3.5 text-[#3898FF]" />
-              <span>+91-7024777327</span>
+              <Phone className="w-4 h-4 text-[#70B5FF]" />
+              +91-7024777327
             </a>
 
-            <Button
-              to={navigationData.cta.path}
-              variant="primary"
-              size="sm"
-              className="hidden sm:inline-flex"
-              icon={ArrowUpRight}
-            >
-              {navigationData.cta.label}
-            </Button>
+            <Link
+  to="/contact"
+  className="hidden sm:inline-flex items-center gap-2 px-5 py-3 rounded-xl
+  bg-gradient-to-r from-[#287FE8] to-[#7655E8]
+  text-white text-sm font-bold
+  hover:shadow-[0_0_25px_rgba(56,152,255,0.35)]
+  hover:-translate-y-0.5 transition-all duration-300"
+>
+  Get a Quote
+  <ArrowUpRight className="w-4 h-4" />
+</Link>
 
-            {/* Mobile Hamburger Button */}
             <button
-              onClick={onOpenMobileMenu}
-              className="md:hidden p-2.5 text-[#A8B1C2] hover:text-[#F5F7FC] hover:bg-white/[0.08] rounded-xl transition-colors border border-white/[0.08]"
-              aria-label="Open Mobile Menu"
+              type="button"
+              onClick={() => onOpenMobileMenu?.()}
+              aria-label="Open mobile menu"
+              className="md:hidden p-2.5 rounded-xl border border-white/10 bg-white/[0.05] text-slate-200 hover:text-white hover:border-[#3898FF]/40 transition-all"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5" />
             </button>
           </div>
         </div>

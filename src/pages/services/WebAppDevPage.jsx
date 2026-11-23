@@ -1,383 +1,585 @@
+
 import React, { useState } from 'react';
-import { 
-  ArrowUpRight, 
-  Code2, 
-  Terminal, 
-  Cpu, 
-  Smartphone, 
-  Tablet, 
-  Monitor, 
-  Zap, 
-  ShieldCheck, 
-  CheckCircle2, 
-  ChevronDown, 
-  Layers, 
-  GitBranch, 
-  Workflow
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ArrowUpRight,
+  Globe,
+  ShoppingCart,
+  Smartphone,
+  Layout,
+  Code2,
+  Palette,
+  Database,
+  ShieldCheck,
+  CheckCircle2,
+  ChevronDown,
+  MessageCircle,
+  Layers,
 } from 'lucide-react';
+
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { siteConfig } from '../../config/siteConfig';
 
+const developmentServices = [
+  {
+    title: 'Business Websites',
+    description:
+      'Professional, responsive websites that introduce your business, communicate your services and help customers get in touch.',
+    image:
+      'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Modern business website displayed on a computer',
+    icon: Globe,
+    points: ['Company and service websites', 'Landing pages', 'Responsive layouts'],
+  },
+  {
+    title: 'E-commerce Websites',
+    description:
+      'Online stores designed to present products clearly and make browsing, shopping and checkout straightforward.',
+    image:
+      'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Online shopping and e-commerce experience',
+    icon: ShoppingCart,
+    points: ['Product catalogues', 'Shopping cart and checkout', 'Payment integration'],
+  },
+  {
+    title: 'Web Applications',
+    description:
+      'Interactive web-based tools and platforms built around the way your business and customers need to work.',
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Web application interface and data visualisation',
+    icon: Code2,
+    points: ['Custom business applications', 'User accounts and portals', 'API integrations'],
+  },
+  {
+    title: 'Mobile Applications',
+    description:
+      'Mobile app experiences planned around usability, essential features and the needs of your target users.',
+    image:
+  'https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=1200',
+    alt: 'Smartphone displaying a mobile application',
+    icon: Smartphone,
+    points: ['App UI/UX design', 'iOS and Android solutions', 'Mobile-friendly experiences'],
+  },
+  {
+    title: 'UI/UX & Interface Design',
+    description:
+      'Clear, consistent interfaces that make digital products easier to understand, navigate and use.',
+    image:
+      'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Digital product interface and design workspace',
+    icon: Palette,
+    points: ['Wireframes and prototypes', 'User journeys', 'Visual interface design'],
+  },
+  {
+    title: 'Maintenance & Improvements',
+    description:
+      'Keep your website or application updated with practical improvements, technical support and ongoing maintenance.',
+    image:
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Developer working on a website at a computer',
+    icon: ShieldCheck,
+    points: ['Website updates', 'Bug fixes and improvements', 'Performance reviews'],
+  },
+];
+
+const projectTypes = [
+  {
+    icon: Globe,
+    title: 'Corporate Websites',
+    description: 'Professional online presence for companies and organisations.',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Online Stores',
+    description: 'Product discovery, shopping experiences and online transactions.',
+  },
+  {
+    icon: Layout,
+    title: 'Business Portals',
+    description: 'Useful digital spaces for customers, employees and partners.',
+  },
+  {
+    icon: Database,
+    title: 'Custom Platforms',
+    description: 'Purpose-built web solutions for specific business requirements.',
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Understand',
+    description:
+      'We discuss your business, audience, objectives and the problems your website or application should solve.',
+  },
+  {
+    number: '02',
+    title: 'Plan & Design',
+    description:
+      'We organise the pages, features, user journeys and visual direction before development begins.',
+  },
+  {
+    number: '03',
+    title: 'Develop',
+    description:
+      'We build the agreed solution with responsive layouts and the functionality defined for your project.',
+  },
+  {
+    number: '04',
+    title: 'Test & Launch',
+    description:
+      'We review the experience across devices, address agreed issues and prepare the project for launch.',
+  },
+];
+
+const deliverables = [
+  'Responsive website pages',
+  'Mobile-friendly layouts',
+  'User interface design',
+  'Agreed website functionality',
+  'Forms and integrations',
+  'Testing and launch support',
+];
+
+const faqs = [
+  {
+    q: 'What types of websites do you develop?',
+    a: 'We work on business websites, company websites, landing pages, e-commerce stores, web portals and custom web applications.',
+  },
+  {
+    q: 'Can you redesign my existing website?',
+    a: 'Yes. We can review your existing website and discuss improvements to its appearance, navigation, content structure, responsiveness and functionality.',
+  },
+  {
+    q: 'Can you build an e-commerce website?',
+    a: 'Yes. E-commerce requirements can include product catalogues, shopping carts, checkout flows and payment integrations, depending on the project scope.',
+  },
+  {
+    q: 'Will my website work on mobile phones?',
+    a: 'Responsive design is considered as part of the development process so the website can adapt to mobile, tablet and desktop screens.',
+  },
+  {
+    q: 'Can you maintain the website after launch?',
+    a: 'We can discuss ongoing maintenance, content updates, technical support and further improvements based on your requirements.',
+  },
+  {
+    q: 'How much does a website or application cost?',
+    a: 'The cost depends on the design, number of pages, features, integrations and overall complexity. Contact us with your requirements for a project discussion.',
+  },
+];
+
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export const WebAppDevPage = () => {
-  const [viewportMode, setViewportMode] = useState('desktop');
   const [openFaq, setOpenFaq] = useState(null);
-
-  const techStack = [
-    { category: 'Frontend Architecture', tech: ['React 18', 'Vite', 'Tailwind CSS', 'Motion', 'Next.js'], icon: Code2 },
-    { category: 'Backend & APIs', tech: ['Node.js', 'Python', 'FastAPI', 'GraphQL', 'REST Microservices'], icon: Cpu },
-    { category: 'Cloud Infrastructure', tech: ['Cloudflare Edge', 'Docker', 'AWS / Vercel', 'PostgreSQL', 'Redis'], icon: Workflow },
-    { category: 'QA & Compliance', tech: ['WCAG 2.1 AA', 'ESLint / Prettier', 'CI/CD GitHub Actions', 'OWASP Hardening'], icon: ShieldCheck },
-  ];
-
-  const deliverables = [
-    { title: 'Modular Production-Ready Codebase', desc: 'Strict separation of concerns, zero legacy bloat, reusable component design systems, and full source code ownership.' },
-    { title: 'Automated CI/CD Deployment Pipeline', desc: 'Automated testing and zero-downtime deployment workflows configured for GitHub, Cloudflare Edge, or AWS.' },
-    { title: 'Core Web Vitals 95+ Score Audit', desc: 'Guaranteed sub-second First Contentful Paint (FCP), zero Cumulative Layout Shift (CLS), and optimal caching.' },
-    { title: 'API & Component Documentation', desc: 'Interactive Storybook component catalogs and OpenAPI/Swagger documentation for internal development teams.' },
-    { title: 'Cross-Browser & Cross-Device QA Suite', desc: 'Rigorous manual and automated testing across Chrome, Safari, Firefox, iOS, and Android viewports.' },
-    { title: 'Enterprise Security Hardening', desc: 'Content Security Policy (CSP) headers, rate limiting, sanitization, and OWASP Top 10 compliance audits.' },
-  ];
-
-  const faqs = [
-    { q: 'Do we own the full source code and intellectual property upon project completion?', a: 'Yes. You receive 100% intellectual property ownership, clean Git repositories, and complete administrative control with zero vendor lock-in.' },
-    { q: 'How do you guarantee sub-second load times and high Core Web Vitals?', a: 'We architect frontend platforms with zero unnecessary runtime dependencies, modern image encoding (WebP/AVIF), edge server rendering, and atomic CSS.' },
-    { q: 'Can you integrate with our existing backend or headless CMS?', a: 'Yes. Our frontends decouple cleanly to connect with Strapi, Contentful, Sanity, Shopify Storefront API, or custom internal REST/GraphQL backends.' },
-    { q: 'What is the handoff and maintenance protocol after launch?', a: 'We provide structured developer runbooks, architecture walkthrough recordings, and optional ongoing retainer sprints for continuous feature iteration.' },
-  ];
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div className="pt-32 pb-24 bg-[#090B12] min-h-screen text-[#F5F7FC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* 01. DISTINCTIVE HERO: Terminal & Engineering Aesthetic */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center gap-2">
-              <Badge variant="cyan" dot={true}>
-                SERVICE PILLAR 03 // WEBSITE & APPLICATION ENGINEERING
-              </Badge>
-              <span className="text-xs font-mono text-[#00F0FF]">PRODUCT-ENGINEERING</span>
-            </div>
+    <main className="pt-28 pb-24 min-h-screen bg-[#090B12] text-[#F5F7FC]">
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#F5F7FC] leading-[1.06]">
-              Sub-Second Speed.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] via-[#3898FF] to-[#8B5CF6] glow-text-blue">
-                Infinite Scalability.
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            animate="visible"
+            variants={reveal}
+            className="space-y-7"
+          >
+            <Badge variant="cyan" dot>
+              WEBSITE & APPLICATION DEVELOPMENT
+            </Badge>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08]">
+              Digital Experiences
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#22D3EE] via-[#3898FF] to-[#8B5CF6]">
+                Built Around You.
               </span>
             </h1>
 
-            <p className="text-base sm:text-xl text-[#A8B1C2] leading-relaxed max-w-2xl font-normal">
-              We engineer custom web platforms, bespoke SaaS applications, and responsive product interfaces with clean component architectures, zero bloat, and enterprise security.
+            <p className="text-base sm:text-lg text-[#A8B1C2] leading-relaxed max-w-xl">
+              From professional business websites to custom web and mobile
+              applications, we create digital experiences that bring your
+              ideas to life and make everyday interactions easier.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-              <Button to="/contact" variant="primary" size="lg" icon={ArrowUpRight}>
-                Scope Platform Architecture
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <Button
+                to="/contact"
+                variant="primary"
+                size="lg"
+                icon={ArrowUpRight}
+              >
+                Discuss Your Project
               </Button>
+
               <a
                 href={siteConfig.whatsappChatLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-[#141B2B] hover:bg-[#1C253B] text-[#F5F7FC] text-sm font-semibold border border-white/12 transition-all shadow-sm"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#141B2B] hover:bg-[#1C253B] text-[#F5F7FC] text-sm font-semibold border border-white/10 transition-all"
               >
-                Inquire Technical Stack via WhatsApp
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
+                Chat on WhatsApp
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Hero: Live Terminal Engine */}
-          <div className="lg:col-span-5 relative">
-            <div className="p-7 sm:p-9 rounded-3xl bg-[#141B2B] border border-white/[0.12] shadow-2xl relative overflow-hidden font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-4 mb-4">
-                <div className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-[#00F0FF]" />
-                  <span className="text-white font-bold">engine.architecture.sh</span>
-                </div>
-                <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold">
-                  TESTS: 48/48 PASSING
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.94, x: 25 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="relative"
+          >
+            <div className="absolute -inset-5 bg-gradient-to-br from-cyan-500/20 via-blue-500/10 to-violet-500/15 blur-3xl rounded-full" />
+
+            <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-[#141B2B] shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1500&q=90"
+                alt="Web developer designing and building a digital product"
+                className="w-full h-[360px] sm:h-[470px] object-cover"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#090B12] via-transparent to-transparent" />
+
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                <span className="text-xs uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+                  DESIGN · DEVELOPMENT · EXPERIENCE
                 </span>
-              </div>
-
-              {/* Terminal Code Simulation */}
-              <div className="space-y-2 text-[#A8B1C2] leading-relaxed">
-                <div><span className="text-[#3898FF]">$</span> npx vite build --platform=edge</div>
-                <div className="text-emerald-400">✓ 1,605 modules transformed in 4.12s.</div>
-                <div><span className="text-[#8B5CF6]">&gt;</span> First Contentful Paint: <span className="text-white font-bold">0.42s</span></div>
-                <div><span className="text-[#8B5CF6]">&gt;</span> Cumulative Layout Shift: <span className="text-white font-bold">0.00</span></div>
-                <div><span className="text-[#8B5CF6]">&gt;</span> WCAG Accessibility Audit: <span className="text-emerald-400 font-bold">100/100 AA</span></div>
-                <div><span className="text-[#8B5CF6]">&gt;</span> Bundle Size (gzip): <span className="text-[#00F0FF] font-bold">81.03 kB</span></div>
-              </div>
-
-              {/* Live Status Row */}
-              <div className="grid grid-cols-2 gap-3 pt-6 mt-6 border-t border-white/[0.08]">
-                <div className="p-3 rounded-xl bg-[#090B12] border border-white/[0.08]">
-                  <span className="text-[#A8B1C2] block text-[10px]">TIME TO FIRST BYTE</span>
-                  <span className="text-[#00F0FF] font-bold">&lt; 45ms Global</span>
-                </div>
-                <div className="p-3 rounded-xl bg-[#090B12] border border-white/[0.08]">
-                  <span className="text-[#A8B1C2] block text-[10px]">SECURITY AUDIT</span>
-                  <span className="text-emerald-400 font-bold">OWASP Hardened</span>
-                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold mt-2">
+                  From an idea to a digital product.
+                </h2>
               </div>
             </div>
-          </div>
+          </motion.div>
+
         </div>
+      </section>
 
-        {/* 02. INTERACTIVE DEVICE VIEWPORT SIMULATOR */}
-        <div className="mb-24 p-8 sm:p-12 rounded-3xl bg-[#101522] border border-white/[0.12] shadow-2xl">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-            <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF] font-bold block mb-1">
-                RESPONSIVE ENGINEERING
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#F5F7FC] tracking-tight">
-                Cross-Device Viewport Calibration
-              </h2>
-            </div>
+      {/* INTRO */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center mb-20">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={reveal}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+            WHAT WE BUILD
+          </span>
 
-            {/* Viewport Toggles */}
-            <div className="flex items-center p-1 rounded-xl bg-[#090B12] border border-white/[0.08]">
-              <button
-                onClick={() => setViewportMode('desktop')}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all ${
-                  viewportMode === 'desktop' ? 'bg-[#3898FF] text-white shadow-md' : 'text-[#A8B1C2]'
-                }`}
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span>Desktop (1920)</span>
-              </button>
-              <button
-                onClick={() => setViewportMode('tablet')}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all ${
-                  viewportMode === 'tablet' ? 'bg-[#3898FF] text-white shadow-md' : 'text-[#A8B1C2]'
-                }`}
-              >
-                <Tablet className="w-3.5 h-3.5" />
-                <span>Tablet (768)</span>
-              </button>
-              <button
-                onClick={() => setViewportMode('mobile')}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all ${
-                  viewportMode === 'mobile' ? 'bg-[#3898FF] text-white shadow-md' : 'text-[#A8B1C2]'
-                }`}
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Mobile (375)</span>
-              </button>
-            </div>
-          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold mt-4 tracking-tight">
+            Technology That Works for{' '}
+            <span className="text-[#67E8F9]">Your Business.</span>
+          </h2>
 
-          {/* Interactive Screen Preview Container */}
-          <div className="p-6 sm:p-10 rounded-2xl bg-[#090B12] border border-white/[0.08] flex items-center justify-center min-h-[380px] overflow-hidden">
-            {viewportMode === 'desktop' && (
-              <div className="w-full max-w-4xl p-5 rounded-2xl bg-[#141B2B] border border-white/[0.1] space-y-4 shadow-2xl">
-                <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 text-xs font-mono text-[#A8B1C2]">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    <span className="ml-2 text-white font-bold">Desktop Enterprise Portal</span>
-                  </div>
-                  <span className="text-[#3898FF]">1920 x 1080 (100% Scale)</span>
-                </div>
-                <div className="grid grid-cols-4 gap-3 py-4">
-                  <div className="p-4 rounded-xl bg-[#101522] border border-white/[0.06] space-y-1">
-                    <div className="h-2 w-12 rounded bg-[#3898FF]/40" />
-                    <div className="h-4 w-16 rounded bg-white/20" />
-                  </div>
-                  <div className="p-4 rounded-xl bg-[#101522] border border-white/[0.06] space-y-1">
-                    <div className="h-2 w-12 rounded bg-[#8B5CF6]/40" />
-                    <div className="h-4 w-16 rounded bg-white/20" />
-                  </div>
-                  <div className="p-4 rounded-xl bg-[#101522] border border-white/[0.06] space-y-1">
-                    <div className="h-2 w-12 rounded bg-emerald-500/40" />
-                    <div className="h-4 w-16 rounded bg-white/20" />
-                  </div>
-                  <div className="p-4 rounded-xl bg-[#101522] border border-white/[0.06] space-y-1">
-                    <div className="h-2 w-12 rounded bg-[#00F0FF]/40" />
-                    <div className="h-4 w-16 rounded bg-white/20" />
-                  </div>
-                </div>
-              </div>
-            )}
+          <p className="text-[#A8B1C2] leading-relaxed mt-5">
+            Your website is often the first place customers experience
+            your business. We bring design, usability and development
+            together to create digital solutions that are useful,
+            accessible and aligned with your goals.
+          </p>
+        </motion.div>
+      </section>
 
-            {viewportMode === 'tablet' && (
-              <div className="w-[580px] p-5 rounded-2xl bg-[#141B2B] border-2 border-white/[0.14] space-y-3 shadow-2xl">
-                <div className="flex items-center justify-between text-xs font-mono text-[#A8B1C2] border-b border-white/[0.06] pb-2">
-                  <span className="text-white font-bold">Tablet Viewport Frame</span>
-                  <span className="text-[#3898FF]">768 x 1024</span>
-                </div>
-                <div className="grid grid-cols-2 gap-3 py-3">
-                  <div className="p-3.5 rounded-xl bg-[#101522] border border-white/[0.06] space-y-1">
-                    <div className="h-2 w-16 rounded bg-[#3898FF]/40" />
-                    <div className="h-3 w-24 rounded bg-white/20" />
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-[#101522] border border-white/[0.06] space-y-1">
-                    <div className="h-2 w-16 rounded bg-[#8B5CF6]/40" />
-                    <div className="h-3 w-24 rounded bg-white/20" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {viewportMode === 'mobile' && (
-              <div className="w-[320px] p-4 rounded-3xl bg-[#141B2B] border-2 border-white/[0.2] space-y-3 shadow-2xl">
-                <div className="flex justify-between items-center text-[9px] font-mono text-[#A8B1C2] px-1">
-                  <span>09:41</span>
-                  <div className="w-12 h-2.5 bg-black rounded-full" />
-                  <span className="text-emerald-400">100%</span>
-                </div>
-                <div className="p-3.5 rounded-2xl bg-[#101522] border border-white/[0.06] space-y-2">
-                  <div className="h-2 w-20 rounded bg-[#3898FF]/60" />
-                  <div className="h-3 w-32 rounded bg-white/30" />
-                  <div className="h-2 w-24 rounded bg-[#A8B1C2]/40" />
-                </div>
-                <div className="h-1 w-16 bg-white/20 rounded-full mx-auto" />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* 03. ENTERPRISE TECHNOLOGY ARCHITECTURE STACK */}
-        <div className="mb-24">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF] font-bold block mb-2">
-              STACK TRANSPARENCY
+      {/* DEVELOPMENT SERVICES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+              OUR CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5F7FC] tracking-tight">
-              Production Architecture Stack
+            <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+              What We Develop
             </h2>
-            <p className="text-xs sm:text-sm text-[#A8B1C2] mt-2">
-              Modern, decoupled technologies selected for high performance, developer ergonomics, and rock-solid security.
+          </div>
+
+          <p className="text-sm text-[#A8B1C2] max-w-md leading-relaxed">
+            Choose a specific development service or combine capabilities
+            to create a solution suited to your business.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {developmentServices.map((service, index) => {
+            const Icon = service.icon;
+
+            return (
+              <motion.article
+                key={service.title}
+                initial={reduceMotion ? false : 'hidden'}
+                whileInView="visible"
+                variants={reveal}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: reduceMotion ? 0 : index * 0.07 }}
+                whileHover={reduceMotion ? {} : { y: -8 }}
+                className="group rounded-3xl overflow-hidden bg-[#141B2B] border border-white/[0.09] hover:border-[#3898FF]/50 transition-colors duration-300"
+              >
+                <div className="relative overflow-hidden h-52">
+                  <img
+                    src={service.image}
+                    alt={service.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#090B12]/70 to-transparent" />
+
+                  <div className="absolute bottom-4 left-5 w-11 h-11 rounded-xl bg-[#090B12]/80 backdrop-blur-md border border-white/15 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#67E8F9]" />
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-[#F5F7FC]">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-sm text-[#A8B1C2] leading-relaxed mt-3 min-h-[72px]">
+                    {service.description}
+                  </p>
+
+                  <div className="border-t border-white/[0.08] mt-5 pt-5 space-y-3">
+                    {service.points.map((point) => (
+                      <div
+                        key={point}
+                        className="flex items-center gap-2.5 text-sm text-[#D5DBE7]"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-[#67E8F9] shrink-0" />
+                        <span>{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* PROJECT TYPES */}
+      <section className="py-24 bg-[#101522] border-y border-white/[0.07] mb-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+              DIGITAL SOLUTIONS
+            </span>
+
+            <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+              Different Needs.{' '}
+              <span className="text-[#67E8F9]">The Right Solution.</span>
+            </h2>
+
+            <p className="text-sm text-[#A8B1C2] mt-4 leading-relaxed">
+              Whether you need a simple online presence or a more
+              involved digital platform, we can discuss the right
+              approach for your requirements.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techStack.map((tier) => {
-              const Icon = tier.icon;
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {projectTypes.map((item, index) => {
+              const Icon = item.icon;
+
               return (
-                <div
-                  key={tier.category}
-                  className="p-6 rounded-2xl bg-[#141B2B] border border-white/[0.08] hover:border-[#3898FF]/50 transition-all flex flex-col justify-between"
+                <motion.div
+                  key={item.title}
+                  initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ delay: reduceMotion ? 0 : index * 0.1 }}
+                  whileHover={reduceMotion ? {} : { y: -6 }}
+                  className="p-7 rounded-2xl bg-[#141B2B] border border-white/[0.08] hover:border-[#67E8F9]/40 transition-colors"
                 >
-                  <div>
-                    <div className="p-2.5 rounded-xl bg-[#3898FF]/15 text-[#3898FF] w-fit mb-4">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-base font-bold text-[#F5F7FC] mb-3">{tier.category}</h3>
-                    <ul className="space-y-2">
-                      {tier.tech.map((t) => (
-                        <li key={t} className="flex items-center gap-2 text-xs text-[#A8B1C2]">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#3898FF] shrink-0" />
-                          <span>{t}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center mb-6">
+                    <Icon className="w-6 h-6 text-[#67E8F9]" />
                   </div>
-                  <div className="pt-4 mt-4 border-t border-white/[0.06] text-[10px] font-mono text-[#00F0FF]">
-                    PRODUCTION TESTED
-                  </div>
-                </div>
+
+                  <h3 className="text-lg font-bold">{item.title}</h3>
+                  <p className="text-sm text-[#A8B1C2] leading-relaxed mt-3">
+                    {item.description}
+                  </p>
+                </motion.div>
               );
             })}
           </div>
         </div>
+      </section>
 
-        {/* 04. DELIVERABLES MATRIX */}
-        <div className="mb-24">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF] font-bold block mb-2">
-              DELIVERABLE SPECIFICATION
+      {/* PROCESS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+            HOW WE WORK
+          </span>
+
+          <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+            From Concept to Launch.
+          </h2>
+
+          <p className="text-sm text-[#A8B1C2] mt-4 leading-relaxed">
+            A clear and collaborative process keeps the project organised
+            from the first discussion through to launch.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {processSteps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: reduceMotion ? 0 : index * 0.12 }}
+              className="relative p-7 rounded-2xl bg-[#141B2B] border border-white/[0.08]"
+            >
+              <span className="text-4xl font-extrabold text-[#67E8F9]/35 font-mono">
+                {step.number}
+              </span>
+
+              <h3 className="text-lg font-bold mt-5">{step.title}</h3>
+
+              <p className="text-sm text-[#A8B1C2] leading-relaxed mt-3">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* DELIVERABLES */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+              PROJECT SCOPE
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5F7FC] tracking-tight">
-              Software Deliverables Included
+
+            <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+              What Your Project Can Include.
             </h2>
-            <p className="text-xs sm:text-sm text-[#A8B1C2] mt-2">
-              Every development milestone includes verified code, automated CI/CD pipelines, and comprehensive documentation.
+
+            <p className="text-[#A8B1C2] leading-relaxed mt-5">
+              Every project is different. The final scope is agreed
+              according to your requirements, features and budget.
+              Typical project components can include:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {deliverables.map((item) => (
               <div
-                key={item.title}
-                className="p-6 rounded-2xl bg-[#141B2B] border border-white/[0.08] hover:border-[#3898FF]/50 transition-all flex flex-col justify-between"
+                key={item}
+                className="flex items-start gap-3 p-4 rounded-xl bg-[#141B2B] border border-white/[0.08]"
               >
-                <div className="space-y-3">
-                  <div className="p-2.5 rounded-xl bg-[#00F0FF]/15 text-[#00F0FF] w-fit">
-                    <Zap className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-base font-bold text-[#F5F7FC]">{item.title}</h3>
-                  <p className="text-xs text-[#A8B1C2] leading-relaxed">{item.desc}</p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-white/[0.06] text-[10px] font-mono text-emerald-400">
-                  ENTERPRISE CERTIFIED
-                </div>
+                <CheckCircle2 className="w-5 h-5 text-[#67E8F9] shrink-0" />
+                <span className="text-sm text-[#E1E6F0]">{item}</span>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* 05. FAQS */}
-        <div className="mb-24 max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF] font-bold block mb-2">
-              TECHNICAL QUESTIONS
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F5F7FC]">
-              Web & App Engineering FAQs
-            </h2>
-          </div>
+      {/* FAQ */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 mb-28">
+        <div className="text-center mb-10">
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+            COMMON QUESTIONS
+          </span>
 
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
+          <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+            Website & App Development FAQs
+          </h2>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openFaq === index;
+
+            return (
               <div
                 key={faq.q}
                 className="rounded-2xl bg-[#141B2B] border border-white/[0.08] overflow-hidden"
               >
                 <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-[#F5F7FC]"
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 text-sm sm:text-base font-semibold text-[#F5F7FC]"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-[#00F0FF] transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+
+                  <ChevronDown
+                    className={`w-5 h-5 text-[#67E8F9] shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
                 </button>
-                {openFaq === i && (
-                  <div className="px-5 pb-5 text-xs sm:text-sm text-[#A8B1C2] leading-relaxed border-t border-white/[0.06] pt-3">
+
+                {isOpen && (
+                  <div className="px-5 sm:px-6 pb-6 text-sm text-[#A8B1C2] leading-relaxed border-t border-white/[0.06] pt-4">
                     {faq.a}
                   </div>
                 )}
               </div>
-            ))}
+            );
+          })}
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 bg-gradient-to-br from-[#102B3C] via-[#141B2B] to-[#20163D] border border-white/[0.12] text-center">
+          <div className="absolute -top-24 -right-20 w-72 h-72 bg-cyan-500/15 blur-[90px] rounded-full" />
+          <div className="absolute -bottom-24 -left-20 w-72 h-72 bg-violet-500/15 blur-[90px] rounded-full" />
+
+          <div className="relative z-10 space-y-6">
+            <Badge variant="cyan">LET'S BUILD SOMETHING USEFUL</Badge>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold">
+              Have an Idea for a Website or App?
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#A8B1C2] max-w-2xl mx-auto leading-relaxed">
+              Tell us what you want to build. Let's discuss the design,
+              features and development approach that make sense for
+              your business.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <Button
+                to="/contact"
+                variant="primary"
+                size="lg"
+                icon={ArrowUpRight}
+              >
+                Start a Project
+              </Button>
+
+              <a
+                href={siteConfig.whatsappChatLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all"
+              >
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp Us
+              </a>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* 06. ARCHITECTURE CTA */}
-        <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-cyan-950/30 via-[#101522] to-blue-950/30 border border-white/[0.12] text-center space-y-6">
-          <Badge variant="cyan">DEPLOY YOUR WEB PLATFORM</Badge>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F5F7FC]">
-            Ready to Build an Enterprise-Grade Digital Product?
-          </h2>
-          <p className="text-sm sm:text-base text-[#A8B1C2] max-w-2xl mx-auto">
-            Schedule an architecture scoping session with our lead engineers to map your database schema, component tree, and deployment pipeline.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <Button to="/contact" variant="primary" size="lg" icon={ArrowUpRight}>
-              Scope Platform Architecture
-            </Button>
-            <a
-              href={siteConfig.whatsappChatLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg"
-            >
-              <span>Instant WhatsApp Discussion</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    </main>
   );
 };

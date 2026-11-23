@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Navandan Emporium",
-  tagline: "Architecting Digital Dominance for Visionary Enterprises",
-  shortDescription: "A premium full-service Digital Marketing, Branding and IT Solutions agency.",
-  longDescription: "We bridge strategic brand storytelling with enterprise-grade engineering, delivering holistic digital marketing, design systems, and custom software architecture for ambitious companies.",
+  tagline: "Your Brand. Your Technology. Your Growth.",
+  shortDescription: "A digital marketing, branding and technology partner helping businesses build their brand, reach customers and work smarter.",
+  longDescription: "We bring branding, digital marketing, website development and business automation together to help startups and established businesses grow.",
   
   // Official Contact Information
   contactEmail: "navandan.emporium@gmail.com",
@@ -16,9 +16,9 @@ export const siteConfig = {
 
   // Primary Call To Action
   ctaHeadline: "Let's Build Something Great Together.",
-  ctaSubheadline: "Whether you are scaling an existing enterprise or launching a high-impact venture, our multidisciplinary team is prepared to architect your digital advantage.",
+  ctaSubheadline: "Whether you are starting a new business or growing an existing one, let’s discuss the right creative and technology solutions for your goals.",
 
-  location: "Global Distributed Operations & Headquarters, India",
+  location: "India",
   reviewNote: "Our team will review your enquiry and get back to you.",
   year: new Date().getFullYear(),
 };

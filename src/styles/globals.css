@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,64 +8,111 @@
 @layer base {
   :root {
     color-scheme: dark;
+    font-family: 'Inter', sans-serif;
   }
-  
+
   html {
     scroll-behavior: smooth;
     background-color: #090B12;
     color: #F5F7FC;
+    scroll-padding-top: 90px;
   }
 
   body {
     background-color: #090B12;
     color: #F5F7FC;
     overflow-x: hidden;
-    font-family: 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  /* Custom high-contrast dark scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.035em;
+    font-weight: 700;
   }
-  ::-webkit-scrollbar-track {
-    background: #090B12;
+
+  button, input, textarea, select {
+    font: inherit;
   }
-  ::-webkit-scrollbar-thumb {
-    background: #1C2438;
-    border-radius: 4px;
-    border: 2px solid #090B12;
+
+  ::selection {
+    background: rgba(56, 152, 255, 0.35);
+    color: white;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #2D3A58;
+
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
 @layer utilities {
+  .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
   .glow-text-blue {
-    text-shadow: 0 0 35px rgba(56, 152, 255, 0.55), 0 0 10px rgba(56, 152, 255, 0.3);
+    text-shadow: 0 0 35px rgba(56, 152, 255, 0.55),
+                 0 0 10px rgba(56, 152, 255, 0.3);
   }
+
   .glow-text-violet {
-    text-shadow: 0 0 35px rgba(139, 92, 246, 0.55), 0 0 10px rgba(139, 92, 246, 0.3);
+    text-shadow: 0 0 35px rgba(139, 92, 246, 0.55),
+                 0 0 10px rgba(139, 92, 246, 0.3);
   }
+
   .glow-box-blue {
     box-shadow: 0 0 40px -5px rgba(56, 152, 255, 0.3);
   }
+
   .glow-box-violet {
     box-shadow: 0 0 40px -5px rgba(139, 92, 246, 0.3);
   }
-  
-  /* Deep Premium Dark Card */
+
   .glass-card-deep {
     background: #141B2B;
-    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
     border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 300ms ease, box-shadow 300ms ease,
+                transform 300ms ease;
   }
-  
+
   .glass-card-deep:hover {
     border-color: rgba(56, 152, 255, 0.4);
-    box-shadow: 0 15px 45px -10px rgba(0, 0, 0, 0.7), 0 0 30px -5px rgba(56, 152, 255, 0.2);
+    box-shadow: 0 15px 45px -10px rgba(0, 0, 0, 0.7),
+                0 0 30px -5px rgba(56, 152, 255, 0.2);
+    transform: translateY(-4px);
   }
 
   .glass-card-secondary {
@@ -77,10 +127,22 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* Animated subtle grid pattern */
   .bg-grid-pattern {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
+  }
+
+  .image-hover-zoom {
+    overflow: hidden;
+  }
+
+  .image-hover-zoom img {
+    transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .image-hover-zoom:hover img {
+    transform: scale(1.06);
   }
 }

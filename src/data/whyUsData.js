@@ -3,25 +3,25 @@ import { ShieldCheck, Cpu, Target, Users } from 'lucide-react';
 export const whyUsData = [
   {
     id: "full-lifecycle",
-    title: "Full-Lifecycle Agency Mastery",
-    kicker: "HOLISTIC EXECUTION",
+    title: "Connected Services",
+    kicker: "ONE CONNECTED APPROACH",
     icon: ShieldCheck,
-    description: "We eliminate the friction of managing fragmented vendors. Brand strategists, growth marketers, and software engineers work in unified sprints to deliver coherent business outcomes.",
+    description: "Branding, marketing and technology services can be planned together, helping reduce the effort of coordinating several separate providers.",
     points: [
       "Unified vision from brand identity to code implementation",
-      "Zero cross-vendor blame or handoff friction",
+      "A coordinated approach across agreed services",
       "Continuous alignment between design and engineering standards",
     ],
   },
   {
     id: "engineering-first",
-    title: "Engineered for Enterprise Scalability",
+    title: "Built Around Your Needs",
     kicker: "TECHNICAL RIGOR",
     icon: Cpu,
     description: "Every digital platform we build follows clean code principles, strict modularity, and lightning-fast performance standards—ensuring your architecture effortlessly supports rapid growth.",
     points: [
       "Modern, dependable web technology built for reliability and scale",
-      "Sub-second load times & zero unnecessary bloat",
+      "Performance and usability considered from the start",
       "Accessible, secure, and maintainable software architecture",
     ],
   },
@@ -39,12 +39,12 @@ export const whyUsData = [
   },
   {
     id: "senior-partnership",
-    title: "Dedicated Senior Partnership",
+    title: "Direct Communication",
     kicker: "TRUE COLLABORATION",
     icon: Users,
-    description: "You work directly with seasoned directors and principal practitioners who understand business models, technical trade-offs, and go-to-market velocity.",
+    description: "You can discuss your goals and requirements directly with the people handling your project.",
     points: [
-      "Direct communication with senior specialists",
+      "Clear communication throughout the project",
       "Proactive strategic guidance at every phase",
       "Transparent timelines, milestones, and deliverables",
     ],

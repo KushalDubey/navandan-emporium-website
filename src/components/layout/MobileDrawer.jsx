@@ -101,6 +101,7 @@ export const MobileDrawer = ({ isOpen, onClose }) => {
 
         {/* Services Section */}
         <div className="space-y-2 pt-4 border-t border-white/[0.08]">
+          <Link to="/services" onClick={onClose} className="block px-3 py-2 text-sm font-semibold text-blue-400 hover:text-white">All Services →</Link>
           <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">
             Service Verticals
           </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { CinematicHero } from '../components/home/CinematicHero';
 import { AgencyIntro } from '../components/home/AgencyIntro';
 import { ServicesGrid } from '../components/home/ServicesGrid';
-import { CredibilitySection } from '../components/home/CredibilitySection';
+{/*import { CredibilitySection } from '../components/home/CredibilitySection';*/}
 import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { PortfolioSection } from '../components/home/PortfolioSection';
 import { ProcessTimeline } from '../components/home/ProcessTimeline';
@@ -22,13 +22,13 @@ export const HomePage = () => {
       <ServicesGrid />
 
       {/* 04. Experience & Factual Structural Credibility Section */}
-      <CredibilitySection />
+     {/* <CredibilitySection /> */}
 
       {/* 05. Why Choose Us */}
       <WhyChooseUs />
 
       {/* 06. Selected Work & Concept Showcases across 07 Categories */}
-      <PortfolioSection />
+      <PortfolioSection featured />
 
       {/* 07. Our Approach & Process */}
       <ProcessTimeline />

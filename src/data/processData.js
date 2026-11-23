@@ -2,7 +2,7 @@ export const processData = [
   {
     step: "01",
     phase: "Discovery & Technical Audit",
-    tagline: "Uncovering Objectives, Gaps & Architectural Requirements",
+    tagline: "Understanding Your Goals and Current Challenges",
     description: "We begin with a deep exploration into your business model, competitive landscape, existing digital assets, and high-priority objectives to establish clear strategic criteria.",
     activities: [
       "Stakeholder interviews & commercial goal alignment",
@@ -14,7 +14,7 @@ export const processData = [
   {
     step: "02",
     phase: "Strategy & Systems Blueprint",
-    tagline: "Defining the Roadmap, Wireframes & Information Architecture",
+    tagline: "Planning the Work and Setting Priorities",
     description: "We translate insights into actionable blueprints—outlining creative directions, technical specifications, user experience flows, and sprint milestones before writing code.",
     activities: [
       "Comprehensive information architecture & wireframing",
@@ -26,7 +26,7 @@ export const processData = [
   {
     step: "03",
     phase: "Sprint Engineering & Craft",
-    tagline: "Agile Development, Iterative Design & Quality Assurance",
+    tagline: "Building, Reviewing and Improving",
     description: "Our multidisciplinary team builds your solution in focused sprints, providing transparent progress demos, rigorous code reviews, and continuous responsive validation.",
     activities: [
       "High-fidelity UI design & component tokenization",
@@ -38,8 +38,8 @@ export const processData = [
   {
     step: "04",
     phase: "Deployment & Evolution",
-    tagline: "Rigorous Launch Protocols & Continuous Strategic Optimization",
-    description: "We ensure a smooth, zero-downtime deployment, deliver thorough documentation and asset kits, and monitor telemetry to guarantee enduring stability and growth.",
+    tagline: "Launch, Handover and Ongoing Support",
+    description: "We prepare the agreed launch, hand over the required files and documentation, and can provide ongoing support and improvements if included in the project.",
     activities: [
       "Automated CI/CD deployment & security verification",
       "Deliverable handoff, documentation & training",

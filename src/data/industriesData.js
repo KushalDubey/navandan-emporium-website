@@ -17,12 +17,12 @@ export const industriesData = [
     id: "enterprise-b2b",
     name: "Enterprise B2B",
     icon: Building2,
-    tagline: "Architecture Integrity & Complex Workflows",
+    tagline: "Reliable Systems & Clear Workflows",
     description: "Designing intuitive client portals, modern corporate sites, and business automation pipelines that streamline operational overhead.",
     capabilities: [
       "Custom ERP & CRM workflow automation",
       "Executive portal & data dashboard engineering",
-      "High-security stakeholder web architecture",
+      "Secure websites and business portals",
     ],
   },
   {
@@ -33,7 +33,7 @@ export const industriesData = [
     description: "Crafting interfaces that instill confidence, handle sensitive financial workflows cleanly, and uphold uncompromising performance standards.",
     capabilities: [
       "High-trust visual design languages",
-      "Sub-second data visualization interfaces",
+      "Clear dashboards and data visualization interfaces",
       "Strict WCAG accessibility & security compliance",
     ],
   },
@@ -54,7 +54,7 @@ export const industriesData = [
     name: "HealthTech & Professional Services",
     icon: Stethoscope,
     tagline: "Authority, Clarity & Seamless Inquiries",
-    description: "Building trustworthy portals, automated consultation scheduling, and high-clarity informational architectures for specialized advisory firms.",
+    description: "Building clear websites, enquiry flows and useful online information for advisory businesses.",
     capabilities: [
       "Structured consultation & inquiry workflows",
       "Compliance-ready informational platforms",

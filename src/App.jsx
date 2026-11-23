@@ -38,50 +38,50 @@ const AboutPage = () => (
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3898FF]/15 text-[#3898FF] font-mono text-xs border border-[#3898FF]/30 font-bold">
           <Sparkles className="w-3.5 h-3.5" />
-          AGENCY PHILOSOPHY & LEADERSHIP
+          ABOUT NAVANDAN EMPORIUM
         </div>
         <h1 className="text-4xl sm:text-6xl font-extrabold text-[#F5F7FC] tracking-tight">
           About Navandan Emporium
         </h1>
         <p className="text-base sm:text-xl text-[#A8B1C2] max-w-2xl mx-auto leading-relaxed">
-          A premium full-service Digital Marketing, Branding, and IT Solutions agency architecting digital dominance for visionary enterprises.
+          We help businesses build a strong brand, connect with the right audience and use technology to work more efficiently.
         </p>
       </div>
 
       <div className="p-8 sm:p-12 rounded-3xl bg-[#141B2B] border border-white/[0.12] space-y-6">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F5F7FC]">
-          The Unified Agency Imperative
+          Creative, Marketing and Technology — Together
         </h2>
         <p className="text-[#A8B1C2] leading-relaxed text-sm sm:text-base">
-          Navandan Emporium was created to bridge a glaring market divide. Traditional consultancies build powerful backend software with lackluster, generic branding. Creative design boutiques craft striking visuals with zero architectural scalability. We integrate brand strategy, performance marketing, and software engineering into a single disciplined partnership.
+          Businesses often have to work with separate providers for branding, marketing, websites and business software. Navandan Emporium brings these services together, making it easier to plan and manage the digital side of a business with one point of contact.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
           <div className="p-5 rounded-2xl bg-[#101522] border border-white/[0.08] space-y-2">
             <span className="text-xs font-mono text-[#3898FF] font-bold">DISCIPLINE 01</span>
-            <div className="text-base font-bold text-white">Full-Lifecycle Execution</div>
-            <p className="text-xs text-[#A8B1C2]">From strategic brand identity to scalable websites and custom software applications.</p>
+            <div className="text-base font-bold text-white">Connected Services</div>
+            <p className="text-xs text-[#A8B1C2]">From brand identity and marketing to websites and business tools.</p>
           </div>
           <div className="p-5 rounded-2xl bg-[#101522] border border-white/[0.08] space-y-2">
             <span className="text-xs font-mono text-[#8B5CF6] font-bold">DISCIPLINE 02</span>
-            <div className="text-base font-bold text-white">Zero Vendor Blame</div>
-            <p className="text-xs text-[#A8B1C2]">A single accountable leadership team across all milestones.</p>
+            <div className="text-base font-bold text-white">Clear Communication</div>
+            <p className="text-xs text-[#A8B1C2]">A clear point of contact, agreed priorities and transparent project updates.</p>
           </div>
           <div className="p-5 rounded-2xl bg-[#101522] border border-white/[0.08] space-y-2">
             <span className="text-xs font-mono text-[#00F0FF] font-bold">DISCIPLINE 03</span>
-            <div className="text-base font-bold text-white">Brand & Tech Harmony</div>
-            <p className="text-xs text-[#A8B1C2]">Clean visual designs that translate seamlessly into reliable, fast-loading digital products.</p>
+            <div className="text-base font-bold text-white">Design That Works</div>
+            <p className="text-xs text-[#A8B1C2]">Consistent design across your brand and digital products, with usability and performance in mind.</p>
           </div>
         </div>
       </div>
 
       <div className="p-8 sm:p-12 rounded-3xl bg-[#101522] border border-white/[0.12] text-center space-y-4">
-        <h3 className="text-2xl font-bold text-white">Ready to Discuss Your Transformation?</h3>
+        <h3 className="text-2xl font-bold text-white">Have a Project in Mind?</h3>
         <p className="text-sm text-[#A8B1C2] max-w-xl mx-auto">
-          Connect directly with our partners to discuss your brand positioning or technical architecture.
+          Tell us what you are looking to build or improve. We can discuss the next steps together.
         </p>
         <div className="pt-2 flex justify-center gap-4">
           <Button to="/contact" variant="primary" size="md" icon={ArrowUpRight}>
-            Initiate Consultation
+            Discuss Your Project
           </Button>
         </div>
       </div>
@@ -132,6 +132,19 @@ export function App() {
             
             {/* 09. Pillar 4: ERP & Business Automation (Enterprise Operations Experience) */}
             <Route path="/services/business-automation" element={<BusinessAutomationPage />} />
+
+            {/* Friendly fallback for unknown URLs */}
+            <Route path="*" element={(
+              <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-24">
+                <span className="text-sm font-mono font-bold tracking-widest text-[#3898FF]">404 — PAGE NOT FOUND</span>
+                <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold text-[#F5F7FC]">This page isn’t here.</h1>
+                <p className="mt-4 max-w-lg text-[#A8B1C2]">The link may be outdated or the page may have moved. You can return to the homepage or explore our services.</p>
+                <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                  <Button to="/" variant="primary">Back to Home</Button>
+                  <Button to="/services" variant="secondary">Explore Services</Button>
+                </div>
+              </div>
+            )} />
           </Routes>
         </main>
 

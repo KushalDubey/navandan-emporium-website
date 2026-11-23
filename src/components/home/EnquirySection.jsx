@@ -19,9 +19,10 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 import { siteConfig } from '../../config/siteConfig';
 
-export const EnquirySection = () => {
+export const EnquirySection = ({ showQuickContacts = true }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState('');
 
   // Form State
   const [formData, setFormData] = useState({
@@ -38,10 +39,10 @@ export const EnquirySection = () => {
   });
 
   const businessTypes = [
-    { id: 'startup', label: 'Seed / Early-Stage Startup', desc: 'Seeking rapid go-to-market architecture' },
-    { id: 'smb', label: 'Growing SMB', desc: 'Expanding market presence & scaling operations' },
-    { id: 'enterprise', label: 'Established Enterprise', desc: 'Complex infrastructure, security & brand transformation' },
-    { id: 'agency', label: 'Agency / Strategic Partner', desc: 'Specialized capability co-development' },
+    { id: 'startup', label: 'Startup / New Business', desc: 'Building a brand, website or first marketing plan' },
+    { id: 'smb', label: 'Growing Business', desc: 'Reaching more customers and improving operations' },
+    { id: 'enterprise', label: 'Established Company', desc: 'Improving digital presence, systems or workflows' },
+    { id: 'agency', label: 'Agency / Business Partner', desc: 'Looking for a specialist to work with' },
   ];
 
   const serviceOptions = [
@@ -62,10 +63,10 @@ export const EnquirySection = () => {
   ];
 
   const budgetOptions = [
-    '$10,000 – $25,000',
-    '$25,000 – $50,000',
-    '$50,000 – $100,000',
-    '$100,000+',
+    'I have a budget in mind',
+    'I need help estimating a budget',
+    'Prefer to discuss this first',
+    'Not decided yet',
   ];
 
   const toggleService = (id) => {
@@ -78,20 +79,53 @@ export const EnquirySection = () => {
   };
 
   const handleNext = () => {
+    if (currentStep === 1 && !formData.businessType) {
+      setFormError('Please select the option that best describes your business.');
+      return;
+    }
+    if (currentStep === 2 && formData.services.length === 0) {
+      setFormError('Please select at least one service to continue.');
+      return;
+    }
+    setFormError('');
     if (currentStep < 5) setCurrentStep(currentStep + 1);
   };
 
   const handlePrev = () => {
+    setFormError('');
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.workEmail.trim());
+    if (!formData.fullName.trim() || !validEmail) {
+      setFormError('Please enter your name and a valid email address.');
+      return;
+    }
+    setFormError('');
     setSubmitted(true);
   };
 
+  const selectedServiceNames = serviceOptions
+    .filter((service) => formData.services.includes(service.id))
+    .map((service) => service.label);
+  const enquiryMessage = [
+    'Hello Navandan Emporium, I would like to discuss a project.',
+    `Name: ${formData.fullName}`,
+    `Email: ${formData.workEmail}`,
+    `Business: ${formData.businessType || 'Not specified'}`,
+    `Company: ${formData.companyName || 'Not specified'}`,
+    `Phone: ${formData.phone || 'Not specified'}`,
+    `Services: ${selectedServiceNames.join(', ') || 'Not specified'}`,
+    `Timeline: ${formData.timeline || 'Not specified'}`,
+    `Budget: ${formData.budgetRange || 'Not specified'}`,
+    `Project details: ${formData.projectScope || 'Not provided'}`,
+  ].join('\n');
+  const whatsappEnquiryLink = `${siteConfig.whatsappLink}?text=${encodeURIComponent(enquiryMessage)}`;
+
   const handleReset = () => {
     setSubmitted(false);
+    setFormError('');
     setCurrentStep(1);
     setFormData({
       businessType: '',
@@ -116,11 +150,11 @@ export const EnquirySection = () => {
           badgeVariant="blue"
           title={siteConfig.ctaHeadline}
           highlight=""
-          subtitle="Whether you prefer an immediate direct message via WhatsApp, a phone consultation, or our guided project enquiry wizard, our leadership team is ready to connect."
+          subtitle="Tell us what you need help with. You can also contact us directly by email, phone or WhatsApp."
         />
 
         {/* Official Quick Contact Strip */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+        {showQuickContacts && <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
           {/* Email Direct */}
           <a
             href={siteConfig.emailLink}
@@ -176,7 +210,7 @@ export const EnquirySection = () => {
               </span>
             </div>
           </a>
-        </div>
+        </div>}
 
         {/* Multi-Step Wizard Container */}
         <div className="p-8 sm:p-12 rounded-3xl bg-[#141B2B] border border-white/[0.14] shadow-2xl relative">
@@ -186,14 +220,14 @@ export const EnquirySection = () => {
             <div className="mb-10">
               <div className="flex items-center justify-between mb-3 text-xs font-mono">
                 <span className="text-[#3898FF] font-bold tracking-wider">
-                  ENQUIRY WIZARD — STEP 0{currentStep} OF 05
+                  PROJECT ENQUIRY — STEP 0{currentStep} OF 05
                 </span>
                 <span className="text-[#A8B1C2] font-semibold">
-                  {currentStep === 1 && 'Organization Profile'}
-                  {currentStep === 2 && 'Required Services (07 Disciplines)'}
-                  {currentStep === 3 && 'Scope & Delivery Timeline'}
-                  {currentStep === 4 && 'Budget Allocation'}
-                  {currentStep === 5 && 'Contact Verification'}
+                  {currentStep === 1 && 'About Your Business'}
+                  {currentStep === 2 && 'Services You Need'}
+                  {currentStep === 3 && 'Project Details & Timeline'}
+                  {currentStep === 4 && 'Budget Preference (Optional)'}
+                  {currentStep === 5 && 'Your Contact Details'}
                 </span>
               </div>
               <div className="w-full h-2 bg-[#090B12] rounded-full overflow-hidden border border-white/[0.06]">
@@ -213,7 +247,7 @@ export const EnquirySection = () => {
                 <div className="space-y-5">
                   <h3 className="text-xl sm:text-2xl font-bold text-[#F5F7FC] mb-2 flex items-center gap-2.5">
                     <Building className="w-5 h-5 text-[#3898FF]" />
-                    Select Your Organization Profile
+                    Which Best Describes Your Business?
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {businessTypes.map((type) => {
@@ -243,7 +277,7 @@ export const EnquirySection = () => {
                 <div className="space-y-5">
                   <h3 className="text-xl sm:text-2xl font-bold text-[#F5F7FC] mb-2 flex items-center gap-2.5">
                     <Briefcase className="w-5 h-5 text-[#8B5CF6]" />
-                    Which Capabilities Do You Require? (Select all that apply)
+                    Which Services Are You Interested In?
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {serviceOptions.map((service) => {
@@ -284,7 +318,7 @@ export const EnquirySection = () => {
                 <div className="space-y-6">
                   <h3 className="text-xl sm:text-2xl font-bold text-[#F5F7FC] mb-2 flex items-center gap-2.5">
                     <Calendar className="w-5 h-5 text-[#00F0FF]" />
-                    Project Timeline & Scope Overview
+                    Project Timeline & Details
                   </h3>
                   <div>
                     <label className="text-xs font-mono uppercase tracking-wider text-[#A8B1C2] block mb-2.5 font-bold">
@@ -331,10 +365,10 @@ export const EnquirySection = () => {
                 <div className="space-y-5">
                   <h3 className="text-xl sm:text-2xl font-bold text-[#F5F7FC] mb-2 flex items-center gap-2.5">
                     <DollarSign className="w-5 h-5 text-emerald-400" />
-                    Anticipated Investment Bracket
+                    Budget Preference (Optional)
                   </h3>
                   <p className="text-xs sm:text-sm text-[#A8B1C2]">
-                    Assisting us with resource allocation, deliverable depth, and senior team orchestration.
+                    You do not need to share an exact amount. Choose the option that best describes where you are.
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                     {budgetOptions.map((b) => {
@@ -363,7 +397,7 @@ export const EnquirySection = () => {
                 <div className="space-y-5">
                   <h3 className="text-xl sm:text-2xl font-bold text-[#F5F7FC] mb-2 flex items-center gap-2.5">
                     <User className="w-5 h-5 text-[#3898FF]" />
-                    Point of Contact & Verification
+                    Your Contact Details
                   </h3>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -376,21 +410,21 @@ export const EnquirySection = () => {
                         required
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        placeholder="Alex Mercer"
+                        placeholder="Your name"
                         className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
                       />
                     </div>
 
                     <div>
                       <label className="text-xs font-mono uppercase tracking-wider text-[#A8B1C2] block mb-2 font-bold">
-                        Business Email *
+                        Email Address *
                       </label>
                       <input
                         type="email"
                         required
                         value={formData.workEmail}
                         onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                        placeholder="alex@enterprise.com"
+                        placeholder="you@example.com"
                         className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
                       />
                     </div>
@@ -403,7 +437,7 @@ export const EnquirySection = () => {
                         type="text"
                         value={formData.companyName}
                         onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                        placeholder="Organization / Enterprise"
+                        placeholder="Your business name (optional)"
                         className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
                       />
                     </div>
@@ -429,6 +463,8 @@ export const EnquirySection = () => {
               )}
 
               {/* Step Navigation Controls */}
+              {formError && <p role="alert" className="mt-6 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{formError}</p>}
+
               <div className="flex items-center justify-between pt-8 mt-8 border-t border-white/[0.08]">
                 {currentStep > 1 ? (
                   <button
@@ -459,13 +495,13 @@ export const EnquirySection = () => {
                     size="md"
                     icon={Send}
                   >
-                    Submit Project Enquiry
+                    Prepare WhatsApp Enquiry
                   </Button>
                 )}
               </div>
             </div>
           ) : (
-            /* Simulation Submission Complete State */
+            /* Enquiry summary and WhatsApp handoff */
             <div className="text-center py-10 space-y-6">
               <div className="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto shadow-[0_0_35px_rgba(16,185,129,0.4)]">
                 <Check className="w-8 h-8" />
@@ -473,10 +509,10 @@ export const EnquirySection = () => {
 
               <div>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5F7FC] tracking-tight">
-                  Enquiry Form Simulation Complete
+                  Your Enquiry Summary Is Ready
                 </h3>
                 <p className="text-sm text-[#A8B1C2] max-w-md mx-auto mt-2 leading-relaxed">
-                  Thank you for testing the interactive project enquiry workflow.
+                  Your details have been prepared. Continue to WhatsApp to review the message and send it to Navandan Emporium.
                 </p>
               </div>
 
@@ -484,20 +520,20 @@ export const EnquirySection = () => {
               <div className="max-w-md mx-auto p-4 rounded-xl bg-amber-500/15 border border-amber-500/30 text-left text-xs text-amber-200 leading-relaxed flex items-start gap-3">
                 <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-[#F5F7FC] block mb-0.5">Frontend Demonstration Notice:</span>
-                  This interface operates in frontend demonstration mode. Submissions are not currently stored in a persistent database or dispatched to an email inbox until backend API integration is deployed. {siteConfig.reviewNote}
+                  <span className="font-bold text-[#F5F7FC] block mb-0.5">Please note:</span>
+                  This website does not store or email form submissions. Your message will open in WhatsApp; check the details and tap Send there. Nothing is sent automatically.
                 </div>
               </div>
 
               <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <a
-                  href={siteConfig.whatsappChatLink}
+                  href={whatsappEnquiryLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition-all shadow-lg"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Connect via WhatsApp Now</span>
+                  <span>Review & Send on WhatsApp</span>
                 </a>
                 <button
                   onClick={handleReset}

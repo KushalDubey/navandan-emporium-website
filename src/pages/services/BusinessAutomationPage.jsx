@@ -1,378 +1,580 @@
+
 import React, { useState } from 'react';
-import { 
-  ArrowUpRight, 
-  Cpu, 
-  Workflow, 
-  Database, 
-  FileSpreadsheet, 
-  Receipt, 
-  CheckCircle2, 
-  ChevronDown, 
-  Zap, 
-  Sliders, 
-  Layers, 
-  ShieldCheck, 
-  Clock, 
-  BarChart2
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ArrowUpRight,
+  Database,
+  Users,
+  Package,
+  Receipt,
+  Workflow,
+  BarChart3,
+  Plug,
+  CheckCircle2,
+  ChevronDown,
+  MessageCircle,
+  Settings,
 } from 'lucide-react';
+
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { siteConfig } from '../../config/siteConfig';
 
+const businessServices = [
+  {
+    title: 'ERP Solutions',
+    description:
+      'Bring essential business functions together in a connected system designed around your operational requirements.',
+    image:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Business management software and reporting on a computer',
+    icon: Database,
+    points: ['Centralised business information', 'Connected business processes'],
+  },
+  {
+    title: 'CRM & Customer Management',
+    description:
+      'Organise customer information, enquiries and sales activities so your team can manage relationships more effectively.',
+    image:
+      'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Business team discussing customer relationships',
+    icon: Users,
+    points: ['Customer and lead records', 'Enquiry and sales tracking'],
+  },
+  {
+    title: 'Inventory & Stock Management',
+    description:
+      'Keep track of products, stock movement and essential inventory information through organised digital workflows.',
+    image:
+      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Organised warehouse inventory and stock management',
+    icon: Package,
+    points: ['Stock and product records', 'Inventory movement tracking'],
+  },
+  {
+    title: 'Billing & Invoicing',
+    description:
+      'Simplify everyday billing activities with organised invoices, transaction records and payment tracking.',
+    image:
+      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Business finance and invoicing documents',
+    icon: Receipt,
+    points: ['Invoice generation', 'Payment and billing records'],
+  },
+  {
+    title: 'Workflow Automation',
+    description:
+      'Reduce repetitive administrative work by connecting routine tasks, approvals, notifications and business processes.',
+    image:
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Team collaborating on digital business workflows',
+    icon: Workflow,
+    points: ['Task and approval workflows', 'Automated notifications'],
+  },
+  {
+    title: 'Dashboards & Reporting',
+    description:
+      'Bring important business information into organised reports and dashboards to support everyday decisions.',
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Business reporting and data dashboard',
+    icon: BarChart3,
+    points: ['Business performance reports', 'Operational dashboards'],
+  },
+];
+
+const additionalCapabilities = [
+  {
+    icon: Plug,
+    title: 'System Integrations',
+    description:
+      'Connect compatible business tools, applications and data sources.',
+  },
+  {
+    icon: Settings,
+    title: 'IT & Process Consulting',
+    description:
+      'Identify practical opportunities to improve existing business processes.',
+  },
+  {
+    icon: Database,
+    title: 'Data Organisation',
+    description:
+      'Structure business records and information for easier access and management.',
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Understand',
+    description:
+      'We learn about your existing operations, systems, challenges and business requirements.',
+  },
+  {
+    number: '02',
+    title: 'Plan',
+    description:
+      'We identify suitable tools, features, integrations and workflows for the agreed scope.',
+  },
+  {
+    number: '03',
+    title: 'Build & Configure',
+    description:
+      'We develop or configure the solution and connect the agreed business processes.',
+  },
+  {
+    number: '04',
+    title: 'Test & Support',
+    description:
+      'We review the solution, address agreed issues and discuss ongoing support requirements.',
+  },
+];
+
+const deliverables = [
+  'Business process assessment',
+  'ERP and CRM configuration',
+  'Inventory management workflows',
+  'Billing and invoicing features',
+  'System and API integrations',
+  'Reports and dashboards',
+];
+
+const faqs = [
+  {
+    q: 'What is an ERP system?',
+    a: 'An ERP system brings different business functions, such as inventory, purchasing, sales and finance, into a connected platform. The exact modules depend on the business and its requirements.',
+  },
+  {
+    q: 'Can you build a custom ERP for my business?',
+    a: 'We can discuss custom business software and ERP requirements based on your workflows, users, features and budget. The recommended approach will depend on the complexity of the project.',
+  },
+  {
+    q: 'Can you help with CRM and lead management?',
+    a: 'Yes. CRM solutions can help organise customer details, enquiries, sales activities, follow-ups and communication records.',
+  },
+  {
+    q: 'Can you automate our existing processes?',
+    a: 'We can review repetitive tasks and explore suitable automation options, including approvals, notifications, data updates and integrations between compatible systems.',
+  },
+  {
+    q: 'Can you integrate existing software?',
+    a: 'Integration possibilities depend on the software, available APIs, access permissions and technical requirements. We can assess compatibility before recommending an approach.',
+  },
+  {
+    q: 'Do you provide support after implementation?',
+    a: 'Maintenance, troubleshooting, updates and further improvements can be discussed as part of the project or a separate support arrangement.',
+  },
+];
+
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export const BusinessAutomationPage = () => {
-  const [activeWorkflowStep, setActiveWorkflowStep] = useState(1);
   const [openFaq, setOpenFaq] = useState(null);
-
-  const workflowSteps = [
-    {
-      step: '01',
-      title: 'Event Trigger: Order Ingestion',
-      system: 'E-Commerce / B2B Contract Node',
-      desc: 'An enterprise purchase order or digital contract is signed. Webhook captures metadata and client verification tokens.',
-      status: 'AUTONOMOUS TRIGGER',
-    },
-    {
-      step: '02',
-      title: 'Logic & Compliance Verification',
-      system: 'Rule-Based Decision Gate',
-      desc: 'System automatically checks inventory allocation, tax/GST compliance, and payment authorization in under 150ms.',
-      status: 'INSTANT RECONCILIATION',
-    },
-    {
-      step: '03',
-      title: 'Automated Invoicing & ERP Sync',
-      system: 'Financial & Accounting Ledger',
-      desc: 'Generates compliant PDF invoice, updates inventory balances, and logs immutable entry into core database.',
-      status: 'DOCUMENT DISPATCHED',
-    },
-    {
-      step: '04',
-      title: 'Stakeholder Telemetry & Dispatch',
-      system: 'Logistics & Communication Node',
-      desc: 'Notifies fulfillment warehouse, updates CRM pipeline status, and triggers automated WhatsApp receipt to client.',
-      status: 'EXECUTION COMPLETE',
-    },
-  ];
-
-  const deliverables = [
-    { title: 'Custom ERP & Operations Control Plane', desc: 'Bespoke web dashboard designed specifically for your internal workflows, eliminating bloated generic software fees.' },
-    { title: 'Unified CRM & Lifecycle Database', desc: 'Single source of truth for all client records, communication histories, contracts, and deal stages.' },
-    { title: 'Automated Billing & Invoicing Engine', desc: 'Auto-generation of tax-compliant invoices, automated recurring payment reminders, and reconciliation scripts.' },
-    { title: 'Event-Driven Webhook Integration Mesh', desc: 'Seamlessly synchronizes data between legacy SQL databases, third-party APIs, Slack, and WhatsApp.' },
-    { title: 'Executive BI & Reporting Dashboards', desc: 'Real-time visibility into inventory velocity, operational cash flow, and departmental efficiency benchmarks.' },
-    { title: 'Comprehensive Integration Runbooks', desc: 'Step-by-step technical documentation, database schemas, and rollback procedures for internal teams.' },
-  ];
-
-  const faqs = [
-    { q: 'Can you integrate with our existing legacy databases and accounting tools?', a: 'Yes. We construct secure API wrappers and ETL data pipelines that bridge legacy SQL/on-premise systems with modern cloud interfaces without operational disruption.' },
-    { q: 'How does a custom ERP compare to off-the-shelf software like SAP or Salesforce?', a: 'Custom systems are tailored strictly to your exact operational logic—eliminating recurring per-seat subscription licenses, bloated unneeded modules, and endless plugin maintenance.' },
-    { q: 'How do you ensure data security and role-based permissions?', a: 'We implement granular role-based access control (RBAC), encrypted database fields, comprehensive audit logging, and automated daily backups.' },
-    { q: 'What is the deployment process for an operations automation pipeline?', a: 'We run parallel pilot staging to verify mathematical reconciliation against your live data before executing a zero-downtime cutover.' },
-  ];
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div className="pt-32 pb-24 bg-[#090B12] min-h-screen text-[#F5F7FC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* 01. DISTINCTIVE HERO: Operations Cockpit */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center gap-2">
-              <Badge variant="blue" dot={true}>
-                SERVICE PILLAR 04 // ERP, CRM & BUSINESS AUTOMATION
-              </Badge>
-              <span className="text-xs font-mono text-[#3898FF]">OPERATIONS ARCHITECTURE</span>
-            </div>
+    <main className="pt-28 pb-24 min-h-screen bg-[#090B12] text-[#F5F7FC]">
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#F5F7FC] leading-[1.06]">
-              Eliminate Bottlenecks.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3898FF] via-[#00F0FF] to-emerald-400 glow-text-blue">
-                Automate Operations.
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <motion.div
+            initial={reduceMotion ? false : 'hidden'}
+            animate="visible"
+            variants={reveal}
+            className="space-y-7"
+          >
+            <Badge variant="blue" dot>
+              ERP & BUSINESS AUTOMATION
+            </Badge>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08]">
+              Simplify Your Business.
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#3898FF] via-[#00C8E8] to-emerald-400">
+                Work Smarter.
               </span>
             </h1>
 
-            <p className="text-base sm:text-xl text-[#A8B1C2] leading-relaxed max-w-2xl font-normal">
-              We design custom ERP cockpits, unified CRM pipelines, and automated business workflows that eliminate manual data reconciliation and streamline multi-departmental execution.
+            <p className="text-base sm:text-lg text-[#A8B1C2] leading-relaxed max-w-xl">
+              Manage everyday operations with connected business systems.
+              From ERP and CRM solutions to inventory, billing and workflow
+              automation, we help bring your business processes together.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-              <Button to="/contact" variant="primary" size="lg" icon={ArrowUpRight}>
-                Schedule Automation Discovery
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <Button
+                to="/contact"
+                variant="primary"
+                size="lg"
+                icon={ArrowUpRight}
+              >
+                Discuss Your Requirements
               </Button>
+
               <a
                 href={siteConfig.whatsappChatLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-[#141B2B] hover:bg-[#1C253B] text-[#F5F7FC] text-sm font-semibold border border-white/12 transition-all shadow-sm"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#141B2B] hover:bg-[#1C253B] text-[#F5F7FC] text-sm font-semibold border border-white/10 transition-all"
               >
-                Inquire ERP Architecture via WhatsApp
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
+                Chat on WhatsApp
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Hero: Live Operations Status Matrix */}
-          <div className="lg:col-span-5 relative">
-            <div className="p-7 sm:p-9 rounded-3xl bg-[#141B2B] border border-white/[0.12] shadow-2xl relative overflow-hidden font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-4 mb-4">
-                <div className="flex items-center gap-2">
-                  <Workflow className="w-4 h-4 text-[#3898FF]" />
-                  <span className="text-white font-bold">ERP Control Plane Telemetry</span>
-                </div>
-                <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold">
-                  24/7 RUNNING
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.94, x: 25 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="relative"
+          >
+            <div className="absolute -inset-5 bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-emerald-500/15 blur-3xl rounded-full" />
+
+            <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-[#141B2B] shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1500&q=90"
+                alt="Modern business office and collaborative workspace"
+                className="w-full h-[360px] sm:h-[470px] object-cover"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#090B12] via-[#090B12]/10 to-transparent" />
+
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                <span className="text-xs uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+                  SYSTEMS · PROCESSES · AUTOMATION
                 </span>
-              </div>
-
-              {/* Data Pipeline Telemetry Preview */}
-              <div className="space-y-3 py-2 text-[#A8B1C2]">
-                <div className="p-3 rounded-xl bg-[#090B12] border border-white/[0.06] flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-[#3898FF] block">PROCUREMENT QUEUE</span>
-                    <span className="text-white font-bold text-sm">Automated PO Matching</span>
-                  </div>
-                  <span className="text-emerald-400 font-bold">Synced (0.0s)</span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-[#090B12] border border-white/[0.06] flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-[#8B5CF6] block">FINANCIAL LEDGER</span>
-                    <span className="text-white font-bold text-sm">Tax & Invoice Generation</span>
-                  </div>
-                  <span className="text-emerald-400 font-bold">100% Reconciled</span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-[#090B12] border border-white/[0.06] flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] text-[#00F0FF] block">LOGISTICS WEBHOOK</span>
-                    <span className="text-white font-bold text-sm">Warehouse Event Bus</span>
-                  </div>
-                  <span className="text-[#3898FF] font-bold">Active Stream</span>
-                </div>
-              </div>
-
-              {/* Status Footer */}
-              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/[0.08] text-[11px]">
-                <div className="text-[#A8B1C2]">
-                  <span>HOURLY RECONCILIATIONS:</span>
-                  <span className="text-white font-bold block">Autonomous</span>
-                </div>
-                <div className="text-[#A8B1C2]">
-                  <span>DATA ACCURACY RATE:</span>
-                  <span className="text-emerald-400 font-bold block">99.99% Guaranteed</span>
-                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold mt-2">
+                  Better-connected business operations.
+                </h2>
               </div>
             </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* INTRODUCTION */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center mb-20">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={reveal}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+            WHAT WE DO
+          </span>
+
+          <h2 className="text-3xl sm:text-4xl font-bold mt-4 tracking-tight">
+            Bring Your Business Processes{' '}
+            <span className="text-[#67E8F9]">Together.</span>
+          </h2>
+
+          <p className="text-[#A8B1C2] leading-relaxed mt-5">
+            Managing customers, stock, billing and daily tasks across
+            disconnected tools can make business operations harder than
+            they need to be. We help identify practical ways to organise
+            information and connect the systems your business uses.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* CORE SERVICES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+              OUR CAPABILITIES
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+              Business Solutions
+            </h2>
           </div>
+
+          <p className="text-sm text-[#A8B1C2] max-w-md leading-relaxed">
+            Choose the capabilities your business needs. Solutions can
+            be planned individually or as part of a connected system.
+          </p>
         </div>
 
-        {/* 02. INTERACTIVE VISUAL WORKFLOW BUILDER SIMULATION */}
-        <div className="mb-24 p-8 sm:p-12 rounded-3xl bg-[#101522] border border-white/[0.12] shadow-2xl">
-          <div className="max-w-3xl mb-8">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#3898FF] font-bold block mb-2">
-              AUTOMATION PIPELINE ARCHITECTURE
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#F5F7FC] tracking-tight">
-              Event-Driven Operations Workflow
-            </h2>
-            <p className="text-sm text-[#A8B1C2] mt-2">
-              Click any stage in the pipeline to inspect how autonomous data orchestration functions without manual touchpoints.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {businessServices.map((service, index) => {
+            const Icon = service.icon;
 
-          {/* Workflow Stage Tabs */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {workflowSteps.map((wf, idx) => (
-              <button
-                key={wf.step}
-                onClick={() => setActiveWorkflowStep(idx + 1)}
-                className={`p-5 rounded-2xl text-left transition-all border ${
-                  activeWorkflowStep === idx + 1
-                    ? 'bg-[#141B2B] border-[#3898FF] shadow-[0_0_25px_rgba(56,152,255,0.3)]'
-                    : 'bg-[#141B2B]/50 border-white/[0.08] hover:border-white/20'
-                }`}
+            return (
+              <motion.article
+                key={service.title}
+                initial={reduceMotion ? false : 'hidden'}
+                whileInView="visible"
+                variants={reveal}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: reduceMotion ? 0 : index * 0.07 }}
+                whileHover={reduceMotion ? {} : { y: -8 }}
+                className="group rounded-3xl overflow-hidden bg-[#141B2B] border border-white/[0.09] hover:border-[#3898FF]/50 transition-colors duration-300"
               >
-                <div className="flex items-center justify-between text-xs font-mono text-[#3898FF] font-bold mb-1">
-                  <span>STAGE {wf.step}</span>
-                  {activeWorkflowStep === idx + 1 && (
-                    <span className="w-2 h-2 rounded-full bg-[#3898FF] animate-ping" />
-                  )}
+                <div className="relative overflow-hidden h-52">
+                  <img
+                    src={service.image}
+                    alt={service.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#090B12]/70 to-transparent" />
+
+                  <div className="absolute bottom-4 left-5 w-11 h-11 rounded-xl bg-[#090B12]/80 backdrop-blur-md border border-white/15 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#67E8F9]" />
+                  </div>
                 </div>
-                <h3 className="text-sm font-bold text-[#F5F7FC]">{wf.title}</h3>
-                <span className="text-[10px] font-mono text-emerald-400 block mt-2">{wf.status}</span>
-              </button>
-            ))}
-          </div>
 
-          {/* Active Stage Deep Inspector */}
-          <div className="p-7 sm:p-9 rounded-2xl bg-[#141B2B] border border-white/[0.08] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-mono text-[#3898FF] font-bold uppercase">
-                Active Process: {workflowSteps[activeWorkflowStep - 1].system}
-              </span>
-              <h4 className="text-2xl font-bold text-[#F5F7FC]">
-                {workflowSteps[activeWorkflowStep - 1].title}
-              </h4>
-              <p className="text-sm text-[#A8B1C2] leading-relaxed">
-                {workflowSteps[activeWorkflowStep - 1].desc}
-              </p>
-              <div className="pt-2 flex items-center gap-4 text-xs font-mono text-emerald-400">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>Zero Manual Overhead Required</span>
-              </div>
-            </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-[#F5F7FC]">
+                    {service.title}
+                  </h3>
 
-            <div className="lg:col-span-5 p-5 rounded-2xl bg-[#090B12] border border-white/[0.08] space-y-3 font-mono text-xs">
-              <div className="text-[#A8B1C2] border-b border-white/[0.06] pb-2">
-                Webhook Event Payload
-              </div>
-              <div className="text-[#3898FF]">
-                event: "procurement.order_reconciled"<br/>
-                status: "200_OK"<br/>
-                latency: "112ms"<br/>
-                hash: "0x89fa...2c11"
-              </div>
-              <div className="text-[10px] text-slate-500 pt-1">
-                Encrypted with AES-256 GCM
-              </div>
-            </div>
-          </div>
+                  <p className="text-sm text-[#A8B1C2] leading-relaxed mt-3 min-h-[72px]">
+                    {service.description}
+                  </p>
+
+                  <div className="border-t border-white/[0.08] mt-5 pt-5 space-y-3">
+                    {service.points.map((point) => (
+                      <div
+                        key={point}
+                        className="flex items-center gap-2.5 text-sm text-[#D5DBE7]"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-[#67E8F9] shrink-0" />
+                        <span>{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
+      </section>
 
-        {/* 03. BUSINESS PROBLEMS SOLVED & OPERATIONAL ROI */}
-        <div className="mb-24">
+      {/* ADDITIONAL CAPABILITIES */}
+      <section className="py-24 bg-[#101522] border-y border-white/[0.07] mb-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#3898FF] font-bold block mb-2">
-              MEASURABLE ROI
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+              MORE WAYS WE CAN HELP
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5F7FC] tracking-tight">
-              Operational Impact & Efficiency
+
+            <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+              Connected Business Technology.
             </h2>
-            <p className="text-xs sm:text-sm text-[#A8B1C2] mt-2">
-              Transforming manual administrative overhead into high-velocity automated precision.
+
+            <p className="text-sm text-[#A8B1C2] mt-4 leading-relaxed">
+              Supporting capabilities that help your systems and
+              everyday processes work together.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-8 rounded-3xl bg-[#141B2B] border border-white/[0.08] text-center space-y-3">
-              <Clock className="w-8 h-8 text-[#3898FF] mx-auto" />
-              <h3 className="text-xl font-bold text-white">120+ Hours Saved Monthly</h3>
-              <p className="text-xs text-[#A8B1C2] leading-relaxed">
-                Eliminating repetitive manual data entry between procurement, invoicing, and logistics.
-              </p>
-            </div>
+            {additionalCapabilities.map((item, index) => {
+              const Icon = item.icon;
 
-            <div className="p-8 rounded-3xl bg-[#141B2B] border border-white/[0.08] text-center space-y-3">
-              <ShieldCheck className="w-8 h-8 text-emerald-400 mx-auto" />
-              <h3 className="text-xl font-bold text-white">Zero Reconciliation Errors</h3>
-              <p className="text-xs text-[#A8B1C2] leading-relaxed">
-                Automated logic gates prevent mismatched quantities, incorrect billing rates, or lost orders.
-              </p>
-            </div>
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ delay: reduceMotion ? 0 : index * 0.1 }}
+                  whileHover={reduceMotion ? {} : { y: -6 }}
+                  className="p-7 rounded-2xl bg-[#141B2B] border border-white/[0.08] hover:border-[#67E8F9]/40 transition-colors"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center mb-6">
+                    <Icon className="w-6 h-6 text-[#67E8F9]" />
+                  </div>
 
-            <div className="p-8 rounded-3xl bg-[#141B2B] border border-white/[0.08] text-center space-y-3">
-              <BarChart2 className="w-8 h-8 text-[#8B5CF6] mx-auto" />
-              <h3 className="text-xl font-bold text-white">Real-Time Executive Visibility</h3>
-              <p className="text-xs text-[#A8B1C2] leading-relaxed">
-                Instant operational dashboards delivering live cash-flow telemetry and departmental KPIs.
-              </p>
-            </div>
+                  <h3 className="text-lg font-bold">{item.title}</h3>
+                  <p className="text-sm text-[#A8B1C2] leading-relaxed mt-3">
+                    {item.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
+      </section>
 
-        {/* 04. DELIVERABLES MATRIX */}
-        <div className="mb-24">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#3898FF] font-bold block mb-2">
-              OUTPUT SPECIFICATION
+      {/* PROCESS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+            HOW WE WORK
+          </span>
+
+          <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+            From Business Needs to Better Systems.
+          </h2>
+
+          <p className="text-sm text-[#A8B1C2] mt-4 leading-relaxed">
+            A practical process to understand your operations,
+            plan the solution and implement the agreed requirements.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {processSteps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: reduceMotion ? 0 : index * 0.12 }}
+              className="relative p-7 rounded-2xl bg-[#141B2B] border border-white/[0.08]"
+            >
+              <span className="text-4xl font-extrabold text-[#67E8F9]/35 font-mono">
+                {step.number}
+              </span>
+
+              <h3 className="text-lg font-bold mt-5">{step.title}</h3>
+
+              <p className="text-sm text-[#A8B1C2] leading-relaxed mt-3">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* DELIVERABLES */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+              PROJECT SCOPE
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5F7FC] tracking-tight">
-              Enterprise Deliverables Included
+
+            <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+              What Your Solution Can Include.
             </h2>
-            <p className="text-xs sm:text-sm text-[#A8B1C2] mt-2">
-              Production-ready operations software, database schemas, and custom API runbooks.
+
+            <p className="text-[#A8B1C2] leading-relaxed mt-5">
+              Each business has different processes and priorities.
+              We define the final scope around your requirements,
+              existing systems and budget.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {deliverables.map((item) => (
               <div
-                key={item.title}
-                className="p-6 rounded-2xl bg-[#141B2B] border border-white/[0.08] hover:border-[#3898FF]/50 transition-all flex flex-col justify-between"
+                key={item}
+                className="flex items-start gap-3 p-4 rounded-xl bg-[#141B2B] border border-white/[0.08]"
               >
-                <div className="space-y-3">
-                  <div className="p-2.5 rounded-xl bg-[#3898FF]/15 text-[#3898FF] w-fit">
-                    <Database className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-base font-bold text-[#F5F7FC]">{item.title}</h3>
-                  <p className="text-xs text-[#A8B1C2] leading-relaxed">{item.desc}</p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-white/[0.06] text-[10px] font-mono text-emerald-400">
-                  SYSTEM VALIDATED
-                </div>
+                <CheckCircle2 className="w-5 h-5 text-[#67E8F9] shrink-0" />
+                <span className="text-sm text-[#E1E6F0]">{item}</span>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* 05. FAQS */}
-        <div className="mb-24 max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#3898FF] font-bold block mb-2">
-              ENTERPRISE QUESTIONS
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F5F7FC]">
-              ERP & Business Automation FAQs
-            </h2>
-          </div>
+      {/* FAQ */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 mb-28">
+        <div className="text-center mb-10">
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#67E8F9] font-bold">
+            COMMON QUESTIONS
+          </span>
 
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
+          <h2 className="text-3xl sm:text-4xl font-bold mt-3">
+            ERP & Business Automation FAQs
+          </h2>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openFaq === index;
+
+            return (
               <div
                 key={faq.q}
                 className="rounded-2xl bg-[#141B2B] border border-white/[0.08] overflow-hidden"
               >
                 <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-[#F5F7FC]"
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 text-sm sm:text-base font-semibold text-[#F5F7FC]"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-[#3898FF] transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+
+                  <ChevronDown
+                    className={`w-5 h-5 text-[#67E8F9] shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
                 </button>
-                {openFaq === i && (
-                  <div className="px-5 pb-5 text-xs sm:text-sm text-[#A8B1C2] leading-relaxed border-t border-white/[0.06] pt-3">
+
+                {isOpen && (
+                  <div className="px-5 sm:px-6 pb-6 text-sm text-[#A8B1C2] leading-relaxed border-t border-white/[0.06] pt-4">
                     {faq.a}
                   </div>
                 )}
               </div>
-            ))}
+            );
+          })}
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl p-8 sm:p-14 bg-gradient-to-br from-[#102B3C] via-[#141B2B] to-[#102D29] border border-white/[0.12] text-center">
+          <div className="absolute -top-24 -right-20 w-72 h-72 bg-cyan-500/15 blur-[90px] rounded-full" />
+          <div className="absolute -bottom-24 -left-20 w-72 h-72 bg-emerald-500/15 blur-[90px] rounded-full" />
+
+          <div className="relative z-10 space-y-6">
+            <Badge variant="blue">LET'S IMPROVE YOUR OPERATIONS</Badge>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold">
+              Ready to Make Your Business Work Smarter?
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#A8B1C2] max-w-2xl mx-auto leading-relaxed">
+              Tell us about your current processes and the challenges
+              you want to solve. Let's explore a practical technology
+              solution for your business.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <Button
+                to="/contact"
+                variant="primary"
+                size="lg"
+                icon={ArrowUpRight}
+              >
+                Discuss Your Project
+              </Button>
+
+              <a
+                href={siteConfig.whatsappChatLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all"
+              >
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp Us
+              </a>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* 06. AUTOMATION CTA */}
-        <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-blue-950/30 via-[#101522] to-emerald-950/30 border border-white/[0.12] text-center space-y-6">
-          <Badge variant="blue">MODERNIZE YOUR OPERATIONS</Badge>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F5F7FC]">
-            Ready to Automate Your Business Architecture?
-          </h2>
-          <p className="text-sm sm:text-base text-[#A8B1C2] max-w-2xl mx-auto">
-            Schedule an operational discovery audit with our enterprise architects to map your data silos and streamline workflows.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <Button to="/contact" variant="primary" size="lg" icon={ArrowUpRight}>
-              Schedule Automation Discovery
-            </Button>
-            <a
-              href={siteConfig.whatsappChatLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-all shadow-lg"
-            >
-              <span>Instant WhatsApp Discussion</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    </main>
   );
 };
