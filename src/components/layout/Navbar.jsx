@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -61,19 +61,22 @@ export const Navbar = ({ onOpenMobileMenu }) => {
             <div className="relative w-12 h-12 rounded-[17px] p-[1.5px] bg-gradient-to-br from-[#3898FF] via-[#5865F2] to-[#9B5CFF] shadow-[0_0_25px_rgba(56,152,255,0.22)] group-hover:shadow-[0_0_35px_rgba(56,152,255,0.5)] transition-all duration-300">
               <div className="w-full h-full rounded-[15px] bg-[#090C16] flex items-center justify-center">
                 <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#3898FF] to-[#A78BFA] text-lg tracking-wide">
-                  NE
+                  ND
                 </span>
               </div>
             </div>
 
-            <div className="flex flex-col leading-none">
-              <span className="text-[17px] font-extrabold tracking-tight text-white group-hover:text-[#70B5FF] transition-colors">
-                NAVANDAN
-              </span>
-              <span className="mt-1 text-[10px] font-mono font-semibold tracking-[0.22em] text-slate-400">
-                EMPORIUM
-              </span>
-            </div>
+
+<div className="flex flex-col leading-none">
+  <span className="text-[17px] font-extrabold tracking-tight text-white group-hover:text-[#70B5FF] transition-colors">
+    NAVANDAN
+  </span>
+  <span className="mt-1 text-[10px] font-mono font-semibold tracking-[0.22em] text-slate-400">
+    DIGITAL
+  </span>
+</div>
+
+
           </Link>
 
           {/* Desktop Navigation */}
@@ -199,7 +202,7 @@ export const Navbar = ({ onOpenMobileMenu }) => {
 
             <a
               href={siteConfig.telLink}
-              aria-label="Call Navandan Emporium"
+              aria-label="Call Navandan Digital"
               className="hidden xl:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.045] border border-white/[0.09] text-slate-200 hover:border-[#3898FF]/40 hover:text-white transition-all duration-300 text-xs font-semibold"
             >
               <Phone className="w-4 h-4 text-[#70B5FF]" />

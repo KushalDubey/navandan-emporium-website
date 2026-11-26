@@ -1,6 +1,6 @@
 import React from 'react';
 import { PortfolioSection } from '../components/home/PortfolioSection';
-import { CredibilitySection } from '../components/home/CredibilitySection';
+// import { CredibilitySection } from '../components/home/CredibilitySection';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { ArrowUpRight } from 'lucide-react';
@@ -35,7 +35,7 @@ export const PortfolioPage = () => {
       <PortfolioSection />
 
       {/* Structural Credibility */}
-      <CredibilitySection />
+      {/* <CredibilitySection /> */}
 
       {/* Bottom CTA */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-14">

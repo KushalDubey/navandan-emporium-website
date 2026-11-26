@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   ArrowRight, 
   ArrowLeft, 
@@ -46,19 +46,19 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
   ];
 
   const serviceOptions = [
-    { id: 'branding', label: 'Brand Identity & Creative Design', icon: '🎨' },
-    { id: 'digital-marketing', label: 'Digital Marketing Campaigns', icon: '📈' },
-    { id: 'web-ecommerce', label: 'Website & E-commerce Development', icon: '💻' },
-    { id: 'mobile', label: 'Mobile Applications', icon: '📱' },
-    { id: 'erp-automation', label: 'ERP & Business Automation', icon: '⚙️' },
-    { id: 'social-content', label: 'Social Media & Content Production', icon: '🎬' },
-    { id: 'performance', label: 'Performance Marketing & Lead Gen', icon: '🎯' },
+    { id: 'branding', label: 'Brand Identity & Creative Design', icon: 'ðŸŽ¨' },
+    { id: 'digital-marketing', label: 'Digital Marketing Campaigns', icon: 'ðŸ“ˆ' },
+    { id: 'web-ecommerce', label: 'Website & E-commerce Development', icon: 'ðŸ’»' },
+    { id: 'mobile', label: 'Mobile Applications', icon: 'ðŸ“±' },
+    { id: 'erp-automation', label: 'ERP & Business Automation', icon: 'âš™ï¸' },
+    { id: 'social-content', label: 'Social Media & Content Production', icon: 'ðŸŽ¬' },
+    { id: 'performance', label: 'Performance Marketing & Lead Gen', icon: 'ðŸŽ¯' },
   ];
 
   const timelineOptions = [
     'Immediate (< 30 days)',
-    'Standard (1 – 3 months)',
-    'Strategic Initiative (3 – 6 months)',
+    'Standard (1 â€“ 3 months)',
+    'Strategic Initiative (3 â€“ 6 months)',
     'Long-Term Retainer / Ongoing',
   ];
 
@@ -110,7 +110,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
     .filter((service) => formData.services.includes(service.id))
     .map((service) => service.label);
   const enquiryMessage = [
-    'Hello Navandan Emporium, I would like to discuss a project.',
+    'Hello Navandan Digital, I would like to discuss a project.',
     `Name: ${formData.fullName}`,
     `Email: ${formData.workEmail}`,
     `Business: ${formData.businessType || 'Not specified'}`,
@@ -220,7 +220,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
             <div className="mb-10">
               <div className="flex items-center justify-between mb-3 text-xs font-mono">
                 <span className="text-[#3898FF] font-bold tracking-wider">
-                  PROJECT ENQUIRY — STEP 0{currentStep} OF 05
+                  PROJECT ENQUIRY â€” STEP 0{currentStep} OF 05
                 </span>
                 <span className="text-[#A8B1C2] font-semibold">
                   {currentStep === 1 && 'About Your Business'}
@@ -512,7 +512,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                   Your Enquiry Summary Is Ready
                 </h3>
                 <p className="text-sm text-[#A8B1C2] max-w-md mx-auto mt-2 leading-relaxed">
-                  Your details have been prepared. Continue to WhatsApp to review the message and send it to Navandan Emporium.
+                  Your details have been prepared. Continue to WhatsApp to review the message and send it to Navandan Digital.
                 </p>
               </div>
 

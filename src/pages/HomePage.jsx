@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { CinematicHero } from '../components/home/CinematicHero';
 import { AgencyIntro } from '../components/home/AgencyIntro';
 import { ServicesGrid } from '../components/home/ServicesGrid';
@@ -15,7 +15,7 @@ export const HomePage = () => {
       {/* 01. Cinematic Hero Section */}
       <CinematicHero />
 
-      {/* 02. Introduction to Navandan Emporium */}
+      {/* 02. Introduction to Navandan Digital */}
       <AgencyIntro />
 
       {/* 03. Four Core Service Verticals */}
@@ -25,13 +25,13 @@ export const HomePage = () => {
      {/* <CredibilitySection /> */}
 
       {/* 05. Why Choose Us */}
-      <WhyChooseUs />
+      {/* <WhyChooseUs /> */}
 
       {/* 06. Selected Work & Concept Showcases across 07 Categories */}
-      <PortfolioSection featured />
+      {/* <PortfolioSection featured /> */}
 
       {/* 07. Our Approach & Process */}
-      <ProcessTimeline />
+      {/* <ProcessTimeline /> */}
 
       {/* 08. Industries We Serve */}
       <IndustriesSection />

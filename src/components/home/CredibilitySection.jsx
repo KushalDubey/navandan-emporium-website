@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Layers, Sparkles, Network, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 
@@ -24,7 +24,7 @@ export const CredibilitySection = () => {
       metric: "07",
       label: "Capability Categories",
       highlight: "Deep Specialized Verticals",
-      description: "Dedicated execution frameworks tailored for specific commercial requirements—from mobile UX and brand systems to high-intent lead engines.",
+      description: "Dedicated execution frameworks tailored for specific commercial requirementsâ€”from mobile UX and brand systems to high-intent lead engines.",
       icon: Sparkles,
       color: "from-[#8B5CF6] to-[#6D28D9]",
       accent: "text-[#8B5CF6]",
@@ -131,7 +131,7 @@ export const CredibilitySection = () => {
           <div className="flex items-center gap-3.5">
             <ShieldCheck className="w-6 h-6 text-[#3898FF] shrink-0" />
             <p className="text-[#A8B1C2] leading-relaxed">
-              <span className="font-bold text-[#F5F7FC]">Factual Integrity Notice:</span> The structural metrics above describe Navandan Emporium's internal operational capabilities and service architecture. In adherence to strict commercial transparency, historical client project volumes remain unpublished until verified audits are completed.
+              <span className="font-bold text-[#F5F7FC]">Factual Integrity Notice:</span> The structural metrics above describe Navandan Digital's internal operational capabilities and service architecture. In adherence to strict commercial transparency, historical client project volumes remain unpublished until verified audits are completed.
             </p>
           </div>
           <div className="shrink-0 font-mono text-[11px] text-[#3898FF] uppercase tracking-widest px-3.5 py-1.5 rounded-full bg-[#3898FF]/15 border border-[#3898FF]/30 font-semibold">

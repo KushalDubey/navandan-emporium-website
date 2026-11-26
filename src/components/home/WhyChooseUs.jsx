@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
@@ -57,7 +57,7 @@ export const WhyChooseUs = () => {
             badgeVariant="cyan"
             title="Engineered for Clarity."
             highlight="Proven by Rigor."
-            subtitle="Why ambitious businesses choose Navandan Emporium to spearhead their brand presence and digital infrastructure."
+            subtitle="Why ambitious businesses choose Navandan Digital to spearhead their brand presence and digital infrastructure."
           />
         </motion.div>
 

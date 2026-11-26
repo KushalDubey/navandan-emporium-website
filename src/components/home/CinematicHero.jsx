@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
@@ -185,7 +185,7 @@ export const CinematicHero = () => {
               variants={revealVariants}
               className="text-base sm:text-xl text-[#A8B1C2] max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              Navandan Emporium brings branding, digital marketing,
+              Navandan Digital brings branding, digital marketing,
               website development and business technology together
               to help businesses build, grow and operate smarter.
             </motion.p>
@@ -410,7 +410,7 @@ export const CinematicHero = () => {
                 className="absolute -bottom-4 -left-4 p-3 rounded-2xl bg-[#141B2B] border border-white/[0.12] shadow-2xl backdrop-blur-xl hidden sm:flex items-center gap-3 text-xs font-mono text-[#F5F7FC]"
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-[#3898FF]" />
-                <span>BRANDING • MARKETING • TECHNOLOGY</span>
+                <span>BRANDING â€¢ MARKETING â€¢ TECHNOLOGY</span>
               </motion.div>
 
             </motion.div>

@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { siteConfig } from '../../config/siteConfig';
@@ -34,7 +34,7 @@ export const Footer = () => {
               <div className="w-12 h-12 rounded-[17px] p-[1.5px] bg-gradient-to-br from-[#3898FF] via-[#5865F2] to-[#9B5CFF] shadow-[0_0_25px_rgba(56,152,255,0.2)] group-hover:shadow-[0_0_30px_rgba(56,152,255,0.4)] transition-all">
                 <div className="w-full h-full rounded-[15px] bg-[#090C16] flex items-center justify-center">
                   <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#3898FF] to-[#A78BFA] text-lg">
-                    NE
+                    ND
                   </span>
                 </div>
               </div>
@@ -44,7 +44,7 @@ export const Footer = () => {
                   NAVANDAN
                 </span>
                 <span className="mt-1 text-[10px] font-mono font-semibold tracking-[0.22em] text-slate-400">
-                  EMPORIUM
+                  DIGITAL
                 </span>
               </div>
             </Link>
@@ -142,7 +142,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
 <div className="border-t border-white/[0.09] pt-8 pb-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-500 text-center md:text-left">
-            © {siteConfig.year} Navandan Emporium. All rights reserved.
+            Â© {siteConfig.year} Navandan Digital. All rights reserved.
           </p>
 
           <p className="text-xs text-slate-400 text-center">

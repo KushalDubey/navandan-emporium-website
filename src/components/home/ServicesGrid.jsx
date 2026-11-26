@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import {
   ArrowUpRight,
@@ -75,7 +75,7 @@ const ServiceImage = ({ service }) => {
         <div className="flex items-center gap-2 mb-2">
           <span className="w-2 h-2 rounded-full bg-[#3898FF]" />
           <span className="text-[10px] sm:text-xs font-semibold tracking-[0.18em] text-white/80">
-            NAVANDAN EMPORIUM
+            NAVANDAN DIGITAL
           </span>
         </div>
 

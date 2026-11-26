@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
@@ -120,7 +120,7 @@ const deliverables = [
 
 const faqs = [
   {
-    q: 'Which businesses can work with Navandan Emporium?',
+    q: 'Which businesses can work with Navandan Digital?',
     a: 'We work with startups, small and medium businesses, growing brands and established organisations across different industries.',
   },
   {
@@ -227,7 +227,7 @@ export const DigitalMarketingPage = () => {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <span className="text-xs uppercase tracking-[0.2em] text-[#A78BFA] font-bold">
-                  Strategy · Creativity · Growth
+                  Strategy Â· Creativity Â· Growth
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-bold mt-2">
                   Marketing with a clear purpose.

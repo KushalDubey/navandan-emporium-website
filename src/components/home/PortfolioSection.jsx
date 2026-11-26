@@ -3,6 +3,18 @@ import React, { useState } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 
 import {
+  Layers,
+  TrendingUp,
+  Code2,
+  Cpu,
+  CheckCircle2,
+} from 'lucide-react';
+
+import { SectionHeader } from '../ui/SectionHeader';
+import { servicesData } from '../../data/servicesData';
+import { Button } from '../ui/Button';
+
+import {
   portfolioData,
   portfolioCategories,
 } from '../../data/portfolioData';
@@ -47,16 +59,19 @@ export const PortfolioSection = () => {
         );
 
   return (
+
+
     <section
       id="work"
       className="relative py-24 md:py-32 border-t border-white/[0.08] overflow-hidden bg-[#090B12]"
+    
     >
       <div className="absolute -top-40 left-1/4 w-96 h-96 bg-blue-600/[0.07] rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
        <div className="flex justify-center mb-10">
-  <span className="inline-flex items-center px-5 py-2 rounded-full border border-[#3898FF]/30 bg-[#3898FF]/10 text-[#8DBEFF] text-[10px] font-bold uppercase tracking-[0.2em]">
+  <span className="inline-flex items-center px-5 py-2 rounded-full border border-[#3898FF]/30 bg-[#3898FF]/10 text-[#8DBEFF] text-[30px] font-bold uppercase tracking-[0.2em]">
     Our Work
   </span>
 </div>
