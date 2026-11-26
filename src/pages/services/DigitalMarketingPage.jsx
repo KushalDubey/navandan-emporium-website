@@ -227,7 +227,7 @@ export const DigitalMarketingPage = () => {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <span className="text-xs uppercase tracking-[0.2em] text-[#A78BFA] font-bold">
-                  Strategy Â· Creativity Â· Growth
+                  Strategy · Creativity · Growth
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-bold mt-2">
                   Marketing with a clear purpose.

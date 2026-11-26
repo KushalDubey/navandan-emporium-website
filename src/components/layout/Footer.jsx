@@ -142,7 +142,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
 <div className="border-t border-white/[0.09] pt-8 pb-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-500 text-center md:text-left">
-            Â© {siteConfig.year} Navandan Digital. All rights reserved.
+            <p>&copy; 2026 Navandan Digital. All rights reserved.</p>
           </p>
 
           <p className="text-xs text-slate-400 text-center">

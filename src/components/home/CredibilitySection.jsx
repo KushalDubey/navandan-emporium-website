@@ -24,7 +24,7 @@ export const CredibilitySection = () => {
       metric: "07",
       label: "Capability Categories",
       highlight: "Deep Specialized Verticals",
-      description: "Dedicated execution frameworks tailored for specific commercial requirementsâ€”from mobile UX and brand systems to high-intent lead engines.",
+      description: "Dedicated execution frameworks tailored for specific commercial requirements”from mobile UX and brand systems to high-intent lead engines.",
       icon: Sparkles,
       color: "from-[#8B5CF6] to-[#6D28D9]",
       accent: "text-[#8B5CF6]",

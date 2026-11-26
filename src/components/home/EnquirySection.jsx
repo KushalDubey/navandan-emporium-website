@@ -13,7 +13,14 @@ import {
   User,
   Mail,
   Phone,
-  MessageSquare
+  MessageSquare,
+  Palette,
+  BarChart3,
+  Monitor,
+  Smartphone,
+  Settings,
+  Clapperboard,
+  Target
 } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
@@ -23,6 +30,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formError, setFormError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
 
   // Form State
   const [formData, setFormData] = useState({
@@ -46,19 +54,19 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
   ];
 
   const serviceOptions = [
-    { id: 'branding', label: 'Brand Identity & Creative Design', icon: 'ðŸŽ¨' },
-    { id: 'digital-marketing', label: 'Digital Marketing Campaigns', icon: 'ðŸ“ˆ' },
-    { id: 'web-ecommerce', label: 'Website & E-commerce Development', icon: 'ðŸ’»' },
-    { id: 'mobile', label: 'Mobile Applications', icon: 'ðŸ“±' },
-    { id: 'erp-automation', label: 'ERP & Business Automation', icon: 'âš™ï¸' },
-    { id: 'social-content', label: 'Social Media & Content Production', icon: 'ðŸŽ¬' },
-    { id: 'performance', label: 'Performance Marketing & Lead Gen', icon: 'ðŸŽ¯' },
+    { id: 'branding', label: 'Brand Identity & Creative Design', icon: Palette },
+    { id: 'digital-marketing', label: 'Digital Marketing Campaigns', icon: BarChart3 },
+    { id: 'web-ecommerce', label: 'Website & E-commerce Development', icon: Monitor },
+    { id: 'mobile', label: 'Mobile Applications', icon: Smartphone },
+    { id: 'erp-automation', label: 'ERP & Business Automation', icon: Settings },
+    { id: 'social-content', label: 'Social Media & Content Production', icon: Clapperboard },
+    { id: 'performance', label: 'Performance Marketing & Lead Gen', icon: Target },
   ];
 
   const timelineOptions = [
     'Immediate (< 30 days)',
-    'Standard (1 â€“ 3 months)',
-    'Strategic Initiative (3 â€“ 6 months)',
+    'Standard (1 - 3 months)',
+    'Strategic Initiative (3 - 6 months)',
     'Long-Term Retainer / Ongoing',
   ];
 
@@ -96,12 +104,40 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
+  const isValidEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
+  const isValidPhone = (phone) => /^\d{10}$/.test(phone);
+
   const handleSubmit = () => {
-    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.workEmail.trim());
-    if (!formData.fullName.trim() || !validEmail) {
-      setFormError('Please enter your name and a valid email address.');
+    const errors = {};
+
+    if (!formData.fullName.trim()) {
+      errors.fullName = 'Please enter your name.';
+    }
+
+    if (formData.preferredContact === 'Email' && !isValidEmail(formData.workEmail)) {
+      errors.workEmail = 'Please enter a valid email address.';
+    } else if (formData.workEmail.trim() && !isValidEmail(formData.workEmail)) {
+      errors.workEmail = 'Please enter a valid email address.';
+    }
+
+    if (
+      ['Phone', 'WhatsApp'].includes(formData.preferredContact) &&
+      !isValidPhone(formData.phone)
+    ) {
+      errors.phone = 'Please enter a valid 10-digit mobile number.';
+    } else if (formData.phone && !isValidPhone(formData.phone)) {
+      errors.phone = 'Please enter a valid 10-digit mobile number.';
+    }
+
+    setFieldErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setFormError('Please correct the highlighted details before continuing.');
       return;
     }
+
     setFormError('');
     setSubmitted(true);
   };
@@ -112,10 +148,11 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
   const enquiryMessage = [
     'Hello Navandan Digital, I would like to discuss a project.',
     `Name: ${formData.fullName}`,
-    `Email: ${formData.workEmail}`,
+    `Email: ${formData.workEmail || 'Not provided'}`,
+    `Preferred contact: ${formData.preferredContact}`,
     `Business: ${formData.businessType || 'Not specified'}`,
     `Company: ${formData.companyName || 'Not specified'}`,
-    `Phone: ${formData.phone || 'Not specified'}`,
+    `Phone: ${formData.phone ? `+91-${formData.phone}` : 'Not specified'}`,
     `Services: ${selectedServiceNames.join(', ') || 'Not specified'}`,
     `Timeline: ${formData.timeline || 'Not specified'}`,
     `Budget: ${formData.budgetRange || 'Not specified'}`,
@@ -126,6 +163,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
   const handleReset = () => {
     setSubmitted(false);
     setFormError('');
+    setFieldErrors({});
     setCurrentStep(1);
     setFormData({
       businessType: '',
@@ -220,7 +258,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
             <div className="mb-10">
               <div className="flex items-center justify-between mb-3 text-xs font-mono">
                 <span className="text-[#3898FF] font-bold tracking-wider">
-                  PROJECT ENQUIRY â€” STEP 0{currentStep} OF 05
+                  PROJECT ENQUIRY - STEP 0{currentStep} OF 05
                 </span>
                 <span className="text-[#A8B1C2] font-semibold">
                   {currentStep === 1 && 'About Your Business'}
@@ -294,7 +332,9 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                           }`}
                         >
                           <div className="flex items-center gap-3.5 min-w-0 pr-2">
-                            <span className="text-xl">{service.icon}</span>
+                            <span className="w-9 h-9 rounded-xl bg-[#3898FF]/10 border border-[#3898FF]/20 flex items-center justify-center text-[#3898FF] shrink-0">
+                              <service.icon className="w-4 h-4" aria-hidden="true" />
+                            </span>
                             <span className="text-sm font-bold text-[#F5F7FC] truncate">{service.label}</span>
                           </div>
                           <div
@@ -352,10 +392,14 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                     <textarea
                       rows={3}
                       value={formData.projectScope}
+                      maxLength={500}
                       onChange={(e) => setFormData({ ...formData, projectScope: e.target.value })}
-                      placeholder="Outline your core objectives, key challenges, or existing stack..."
+                      placeholder="Tell us what you're trying to achieve, what isn't working today, or any features you need..."
                       className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
                     />
+                    <p className="mt-1.5 text-right text-[11px] text-[#6B7A99]" aria-live="polite">
+                      {formData.projectScope.length}/500 characters
+                    </p>
                   </div>
                 </div>
               )}
@@ -378,7 +422,7 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                           key={b}
                           type="button"
                           onClick={() => setFormData({ ...formData, budgetRange: b })}
-                          className={`p-5 rounded-2xl text-left font-mono text-base font-bold border transition-all ${
+                          className={`p-5 rounded-2xl text-left text-sm font-bold leading-relaxed border transition-all ${
                             isSelected
                               ? 'bg-emerald-500/20 border-emerald-500 text-[#F5F7FC] shadow-[0_0_25px_rgba(16,185,129,0.3)]'
                               : 'bg-[#101522] border-white/[0.08] text-[#A8B1C2] hover:bg-[#101522]/80'
@@ -409,24 +453,45 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                         type="text"
                         required
                         value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, fullName: e.target.value });
+                          setFieldErrors((prev) => ({ ...prev, fullName: '' }));
+                        }}
                         placeholder="Your name"
+                        aria-invalid={Boolean(fieldErrors.fullName)}
                         className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
                       />
+                      {fieldErrors.fullName && (
+                        <p className="mt-1.5 text-xs text-rose-300" role="alert">{fieldErrors.fullName}</p>
+                      )}
                     </div>
 
                     <div>
                       <label className="text-xs font-mono uppercase tracking-wider text-[#A8B1C2] block mb-2 font-bold">
-                        Email Address *
+                        Email Address {formData.preferredContact === 'Email' ? '*' : '(Optional)'}
                       </label>
                       <input
                         type="email"
-                        required
+                        autoComplete="email"
                         value={formData.workEmail}
-                        onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
+                        onBlur={() => {
+                          const invalid = formData.workEmail.trim() && !isValidEmail(formData.workEmail);
+                          setFieldErrors((prev) => ({
+                            ...prev,
+                            workEmail: invalid ? 'Please enter a valid email address.' : '',
+                          }));
+                        }}
+                        onChange={(e) => {
+                          setFormData({ ...formData, workEmail: e.target.value });
+                          setFieldErrors((prev) => ({ ...prev, workEmail: '' }));
+                        }}
                         placeholder="you@example.com"
+                        aria-invalid={Boolean(fieldErrors.workEmail)}
                         className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
                       />
+                      {fieldErrors.workEmail && (
+                        <p className="mt-1.5 text-xs text-rose-300" role="alert">{fieldErrors.workEmail}</p>
+                      )}
                     </div>
 
                     <div>
@@ -442,19 +507,70 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                       />
                     </div>
 
+                    <div className="sm:col-span-2">
+                      <label className="text-xs font-mono uppercase tracking-wider text-[#A8B1C2] block mb-2 font-bold">
+                        How Would You Prefer Us to Contact You? *
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {['Email', 'Phone', 'WhatsApp'].map((method) => (
+                          <button
+                            key={method}
+                            type="button"
+                            onClick={() => {
+                              setFormData({ ...formData, preferredContact: method });
+                              setFieldErrors((prev) => ({ ...prev, phone: '', workEmail: '' }));
+                            }}
+                            aria-pressed={formData.preferredContact === method}
+                            className={`rounded-xl border px-3 py-3 text-sm font-semibold transition-colors ${
+                              formData.preferredContact === method
+                                ? 'bg-[#3898FF]/20 border-[#3898FF] text-[#F5F7FC]'
+                                : 'bg-[#090B12] border-white/[0.12] text-[#A8B1C2] hover:border-white/30'
+                            }`}
+                          >
+                            {method}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
                     <div>
                       <label className="text-xs font-mono uppercase tracking-wider text-[#A8B1C2] block mb-2 font-bold">
-                        Phone / WhatsApp Number
+                        Phone / WhatsApp Number {['Phone', 'WhatsApp'].includes(formData.preferredContact) ? '*' : '(Optional)'}
                       </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+91-7024777327"
-                        className="w-full px-4 py-3 rounded-xl bg-[#090B12] border border-white/[0.12] focus:border-[#3898FF] focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
-                      />
+                      <div className="flex w-full rounded-xl bg-[#090B12] border border-white/[0.12] focus-within:border-[#3898FF] focus-within:ring-1 focus-within:ring-[#3898FF]/30 overflow-hidden">
+                        <span className="flex items-center px-4 text-sm font-semibold text-[#F5F7FC] border-r border-white/[0.12] bg-[#101522]">
+                          +91
+                        </span>
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          autoComplete="tel-national"
+                          maxLength={10}
+                          pattern="[0-9]{10}"
+                          value={formData.phone}
+                          onChange={(e) => {
+                            const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+                            setFormData({ ...formData, phone: digitsOnly });
+                            setFieldErrors((prev) => ({ ...prev, phone: '' }));
+                          }}
+                          placeholder="10-digit mobile number"
+                          aria-label="10-digit mobile number"
+                          aria-invalid={Boolean(fieldErrors.phone)}
+                          className="w-full min-w-0 px-4 py-3 bg-transparent focus:outline-none text-sm text-[#F5F7FC] placeholder-[#6B7A99]"
+                        />
+                      </div>
+                      <p className="mt-1.5 text-[11px] text-[#6B7A99]">
+                        Enter 10 digits. The +91 country code is added automatically.
+                      </p>
+                      {fieldErrors.phone && (
+                        <p className="mt-1.5 text-xs text-rose-300" role="alert">{fieldErrors.phone}</p>
+                      )}
                     </div>
                   </div>
+
+                  <p className="text-[11px] leading-relaxed text-[#A8B1C2]">
+                    Privacy: Your contact details will be used to respond to this enquiry. Please avoid sharing passwords, payment details or other sensitive information.
+                  </p>
 
                   <div className="p-4 rounded-xl bg-[#3898FF]/15 border border-[#3898FF]/30 text-xs text-[#F5F7FC]">
                     <span className="font-bold text-[#3898FF]">Review Protocol:</span> {siteConfig.reviewNote} Direct communications may also be addressed to <a href={siteConfig.emailLink} className="text-[#3898FF] underline font-bold">{siteConfig.contactEmail}</a>.
@@ -514,6 +630,44 @@ export const EnquirySection = ({ showQuickContacts = true }) => {
                 <p className="text-sm text-[#A8B1C2] max-w-md mx-auto mt-2 leading-relaxed">
                   Your details have been prepared. Continue to WhatsApp to review the message and send it to Navandan Digital.
                 </p>
+              </div>
+
+              <div className="max-w-xl mx-auto rounded-2xl border border-white/[0.10] bg-[#090B12] p-5 text-left space-y-3">
+                <h4 className="text-sm font-bold text-[#F5F7FC]">Review your details</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <p className="text-[#6B7A99] mb-1">Name</p>
+                    <p className="text-[#F5F7FC]">{formData.fullName}</p>
+                  </div>
+                  <div>
+                    <p className="text-[#6B7A99] mb-1">Preferred contact</p>
+                    <p className="text-[#F5F7FC]">{formData.preferredContact}</p>
+                  </div>
+                  <div>
+                    <p className="text-[#6B7A99] mb-1">Email</p>
+                    <p className="text-[#F5F7FC] break-words">{formData.workEmail || 'Not provided'}</p>
+                  </div>
+                  <div>
+                    <p className="text-[#6B7A99] mb-1">Phone</p>
+                    <p className="text-[#F5F7FC]">{formData.phone ? `+91-${formData.phone}` : 'Not provided'}</p>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <p className="text-[#6B7A99] mb-1">Services</p>
+                    <p className="text-[#F5F7FC]">{selectedServiceNames.join(', ') || 'Not specified'}</p>
+                  </div>
+                  <div>
+                    <p className="text-[#6B7A99] mb-1">Timeline</p>
+                    <p className="text-[#F5F7FC]">{formData.timeline || 'Not specified'}</p>
+                  </div>
+                  <div>
+                    <p className="text-[#6B7A99] mb-1">Budget</p>
+                    <p className="text-[#F5F7FC]">{formData.budgetRange || 'Not specified'}</p>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <p className="text-[#6B7A99] mb-1">Project details</p>
+                    <p className="text-[#F5F7FC] whitespace-pre-wrap break-words">{formData.projectScope || 'Not provided'}</p>
+                  </div>
+                </div>
               </div>
 
               {/* Explicit Frontend Simulation Disclaimer */}
