@@ -1,4 +1,4 @@
-# Navandan Emporium — source review and first correction pass
+# Navandan Digital — source review and first correction pass
 
 This package contains the React/Vite source from the uploaded project with a first coordinated correction pass applied. It intentionally excludes `node_modules`, `dist`, and `.git` so it can be extracted over the existing project without replacing dependencies, build output, or Git history.
 

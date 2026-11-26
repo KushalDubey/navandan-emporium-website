@@ -12,11 +12,11 @@
   telLink: "tel:+917024777327",
   whatsappNumber: "917024777327",
   whatsappLink: "https://wa.me/917024777327",
-  whatsappChatLink: "https://wa.me/917024777327?text=Hello%20Navandan%20Emporium%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
+  whatsappChatLink: "https://wa.me/917024777327?text=Hello%20Navandan%20Digital%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
 
   // Primary Call To Action
   ctaHeadline: "Let's Build Something Great Together.",
-  ctaSubheadline: "Whether you are starting a new business or growing an existing one, letâ€™s discuss the right creative and technology solutions for your goals.",
+  ctaSubheadline: "Whether you are starting a new business or growing an existing one, let's discuss the right creative and technology solutions for your goals.",
 
   location: "India",
   reviewNote: "Our team will review your enquiry and get back to you.",

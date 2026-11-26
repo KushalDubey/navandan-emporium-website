@@ -410,8 +410,10 @@ export const CinematicHero = () => {
                 className="absolute -bottom-4 -left-4 p-3 rounded-2xl bg-[#141B2B] border border-white/[0.12] shadow-2xl backdrop-blur-xl hidden sm:flex items-center gap-3 text-xs font-mono text-[#F5F7FC]"
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-[#3898FF]" />
-                <span>BRANDING â€¢ MARKETING â€¢ TECHNOLOGY</span>
+                <span>BRANDING | MARKETING | TECHNOLOGY</span>
               </motion.div>
+
+
 
             </motion.div>
           </motion.div>

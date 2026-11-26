@@ -1,0 +1,580 @@
+import React, { useState } from 'react';
+import { 
+  ArrowUpRight, 
+  ShieldAlert, 
+  X, 
+  CheckCircle2, 
+  Globe, 
+  Smartphone, 
+  LayoutDashboard, 
+  Megaphone, 
+  Palette,
+  Heart,
+  MessageCircle,
+  Play,
+  TrendingUp,
+  ShoppingBag,
+  FileText,
+  DollarSign,
+  Users
+} from 'lucide-react';
+import { SectionHeader } from '../ui/SectionHeader';
+import { portfolioData, portfolioCategories } from '../../data/portfolioData';
+import { Badge } from '../ui/Badge';
+import { Button } from '../ui/Button';
+
+// Tailored, visually distinct and business-friendly mockup renderer for each project
+const ProjectVisualMockup = ({ project }) => {
+  const { id } = project;
+
+  // 1. PROJECT LUMINA — Brand Identity & Visual Language
+  if (id === 'lumina-brand-system') {
+    return (
+      <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] p-4 flex flex-col justify-between overflow-hidden shadow-2xl">
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+          <span className="text-[10px] font-mono font-bold text-[#3898FF] uppercase tracking-wider">
+            Brand Identity Suite
+          </span>
+          <span className="text-[9px] font-mono text-[#F5F7FC] bg-white/[0.06] px-2 py-0.5 rounded border border-white/10">
+            Vector Design Kit
+          </span>
+        </div>
+
+        {/* Brand Monogram & Luxury Identity Card */}
+        <div className="my-auto text-center space-y-2">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#3898FF] to-[#8B5CF6] flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(56,152,255,0.4)]">
+            <span className="text-white font-extrabold text-xl tracking-tight">L</span>
+          </div>
+          <div>
+            <div className="text-lg font-extrabold text-[#F5F7FC] tracking-widest">LUMINA</div>
+            <div className="text-[10px] font-mono text-[#A8B1C2] tracking-[0.25em] uppercase">Enterprise Systems</div>
+          </div>
+        </div>
+
+        {/* Color Palette & Type Pairing Preview */}
+        <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-[10px] font-mono text-[#A8B1C2]">
+          <div className="flex items-center gap-1.5">
+            <span className="w-3.5 h-3.5 rounded-full bg-[#090B12] border border-white/40" title="Obsidian Base" />
+            <span className="w-3.5 h-3.5 rounded-full bg-[#3898FF]" title="Electric Blue" />
+            <span className="w-3.5 h-3.5 rounded-full bg-[#8B5CF6]" title="Electric Violet" />
+            <span className="w-3.5 h-3.5 rounded-full bg-[#F5F7FC]" title="High-Contrast White" />
+          </div>
+          <span className="text-[#3898FF] font-semibold">Geometric Sans & Mono</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. PROJECT STRATA — Digital Marketing Campaigns
+  if (id === 'strata-omnichannel-campaign') {
+    return (
+      <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] p-4 flex flex-col justify-between overflow-hidden shadow-2xl">
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+          <div className="flex items-center gap-2">
+            <Megaphone className="w-4 h-4 text-[#8B5CF6]" />
+            <span className="text-[10px] font-mono font-bold text-[#F5F7FC]">Multi-Channel Ad Creative</span>
+          </div>
+          <span className="text-[9px] font-mono text-[#8B5CF6] bg-[#8B5CF6]/15 px-2 py-0.5 rounded border border-[#8B5CF6]/30 font-bold">
+            3-Stage Campaign
+          </span>
+        </div>
+
+        {/* Ad Banner Creative Mockup */}
+        <div className="my-auto p-3.5 rounded-xl bg-gradient-to-r from-blue-950/40 via-[#141B2B] to-violet-950/40 border border-white/[0.1] space-y-2">
+          <span className="text-[9px] font-mono text-[#3898FF] uppercase tracking-wider block font-bold">
+            Sponsored Campaign Creative
+          </span>
+          <div className="text-sm font-extrabold text-[#F5F7FC] leading-snug">
+            Scale Your Digital Advantage With Confidence.
+          </div>
+          <div className="flex items-center justify-between pt-1">
+            <span className="text-[10px] text-[#A8B1C2]">Consistent Messaging Across Google & Meta</span>
+            <span className="text-[10px] font-bold text-white bg-[#3898FF] px-2.5 py-1 rounded-lg">
+              Explore Now
+            </span>
+          </div>
+        </div>
+
+        {/* Channel Tags */}
+        <div className="flex items-center justify-between text-[10px] font-mono text-[#A8B1C2] pt-2 border-t border-white/[0.06]">
+          <span className="text-[#3898FF]">Google Search • Meta Ads • LinkedIn B2B</span>
+          <span className="text-emerald-400 font-semibold">Ready to Launch</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 3. PROJECT VANGUARD — Website & E-commerce Development
+  if (id === 'vanguard-commerce-platform') {
+    return (
+      <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] overflow-hidden flex flex-col shadow-2xl">
+        {/* Browser Top Navigation Bar */}
+        <div className="h-8 bg-[#101522] border-b border-white/[0.08] px-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-[#141B2B] text-[10px] font-mono text-[#F5F7FC] border border-white/[0.06]">
+            <Globe className="w-3 h-3 text-[#3898FF] shrink-0" />
+            <span>vanguard-storefront.com</span>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] text-[#A8B1C2]">
+            <ShoppingBag className="w-3.5 h-3.5 text-[#3898FF]" />
+            <span>(2)</span>
+          </div>
+        </div>
+
+        {/* Storefront Product Preview */}
+        <div className="flex-1 p-3.5 flex flex-col justify-between bg-gradient-to-b from-[#090B12] to-[#101522]">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-[10px] text-[#A8B1C2]">
+            <span className="text-[#F5F7FC] font-bold">Featured Catalog Collection</span>
+            <span className="text-[#3898FF]">Filter: All Categories</span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2.5 my-auto">
+            <div className="p-2.5 rounded-xl bg-[#141B2B] border border-white/[0.08] space-y-1">
+              <div className="h-10 rounded-lg bg-gradient-to-tr from-[#3898FF]/20 to-blue-900/30 flex items-center justify-center text-[10px] text-[#3898FF] font-semibold">
+                Product Image
+              </div>
+              <div className="text-xs font-bold text-[#F5F7FC] truncate">Series Pro Watch</div>
+              <div className="flex items-center justify-between text-[11px] font-mono">
+                <span className="text-[#3898FF] font-bold">₹2,499</span>
+                <span className="text-emerald-400 text-[9px]">In Stock</span>
+              </div>
+            </div>
+
+            <div className="p-2.5 rounded-xl bg-[#141B2B] border border-white/[0.08] space-y-1">
+              <div className="h-10 rounded-lg bg-gradient-to-tr from-[#8B5CF6]/20 to-purple-900/30 flex items-center justify-center text-[10px] text-[#8B5CF6] font-semibold">
+                Product Image
+              </div>
+              <div className="text-xs font-bold text-[#F5F7FC] truncate">Aero Minimal Case</div>
+              <div className="flex items-center justify-between text-[11px] font-mono">
+                <span className="text-[#3898FF] font-bold">₹1,299</span>
+                <span className="text-emerald-400 text-[9px]">In Stock</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[10px] font-mono text-[#A8B1C2] border-t border-white/[0.04] pt-1.5">
+            <span>Fast Mobile Checkout</span>
+            <span className="text-emerald-400 font-bold">Performance Review</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 4. PROJECT ORBIT — Mobile Applications
+  if (id === 'orbit-enterprise-mobile') {
+    return (
+      <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] overflow-hidden flex items-center justify-center p-3 shadow-2xl">
+        <div className="w-56 h-full rounded-2xl bg-[#101522] border-2 border-white/[0.16] shadow-2xl p-3 flex flex-col justify-between">
+          <div className="flex justify-between items-center text-[9px] font-mono text-[#A8B1C2] px-1">
+            <span>09:41</span>
+            <div className="w-14 h-3 bg-black rounded-full" />
+            <Smartphone className="w-3 h-3 text-[#3898FF]" />
+          </div>
+
+          <div className="space-y-2 my-auto">
+            <div className="p-2.5 rounded-xl bg-[#8B5CF6]/20 border border-[#8B5CF6]/40">
+              <div className="text-[10px] font-mono text-[#A78BFA] font-bold">Executive Operations</div>
+              <div className="h-1.5 w-28 bg-white/30 rounded mt-1.5" />
+            </div>
+            <div className="p-2.5 rounded-xl bg-[#141B2B] border border-white/[0.08]">
+              <div className="flex justify-between text-[9px] font-mono text-[#F5F7FC]">
+                <span>Pending Approvals</span>
+                <span className="text-emerald-400 font-bold">2 Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-1 w-20 bg-white/30 rounded-full mx-auto" />
+        </div>
+      </div>
+    );
+  }
+
+  // 5. PROJECT NEXUS — ERP & Business Automation
+  if (id === 'nexus-erp-automation') {
+    return (
+      <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] p-4 flex flex-col justify-between overflow-hidden shadow-2xl">
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+          <div className="flex items-center gap-2">
+            <LayoutDashboard className="w-4 h-4 text-[#3898FF]" />
+            <span className="text-[10px] font-mono font-bold text-[#F5F7FC]">Operations & ERP Dashboard</span>
+          </div>
+          <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded border border-emerald-500/30 font-bold">
+            Illustrative Preview
+          </span>
+        </div>
+
+        {/* Operations Data Table Preview */}
+        <div className="my-auto space-y-1.5">
+          <div className="p-2 rounded-xl bg-[#141B2B] border border-white/[0.08] flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2">
+              <FileText className="w-3.5 h-3.5 text-[#3898FF]" />
+              <span className="text-[#F5F7FC] font-semibold font-mono">PO #8042 • Supplier A</span>
+            </div>
+            <span className="text-emerald-400 font-bold font-mono">₹12,400 [Illustrative]</span>
+          </div>
+
+          <div className="p-2 rounded-xl bg-[#141B2B] border border-white/[0.08] flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2">
+              <FileText className="w-3.5 h-3.5 text-[#8B5CF6]" />
+              <span className="text-[#F5F7FC] font-semibold font-mono">PO #8043 • Supplier B</span>
+            </div>
+            <span className="text-[#3898FF] font-bold font-mono">₹8,950 [Illustrative]</span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-[10px] font-mono text-[#A8B1C2] pt-2 border-t border-white/[0.06]">
+          <span>Automated Billing & Inventory</span>
+          <span className="text-emerald-400 font-semibold">Workflow Concept</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 6. PROJECT KINETIC — Social Media & Content Production (DISTINCT SOCIAL SHOWCASE)
+  if (id === 'kinetic-social-studio') {
+    return (
+      <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] p-4 flex flex-col justify-between overflow-hidden shadow-2xl">
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4 text-[#F43F5E]" />
+            <span className="text-[10px] font-mono font-bold text-[#F5F7FC]">Social Media Content Suite</span>
+          </div>
+          <span className="text-[9px] font-mono text-[#F43F5E] bg-[#F43F5E]/15 px-2 py-0.5 rounded border border-[#F43F5E]/30 font-bold">
+            Instagram & LinkedIn
+          </span>
+        </div>
+
+        {/* Social Media Content Grid: Post + Video Thumbnail + Engagement */}
+        <div className="grid grid-cols-12 gap-2.5 my-auto">
+          {/* Post 1: Square Instagram Post Preview */}
+          <div className="col-span-7 p-2 rounded-xl bg-[#141B2B] border border-white/[0.08] space-y-1.5">
+            <div className="h-14 rounded-lg bg-gradient-to-tr from-[#3898FF]/30 via-indigo-900/40 to-[#8B5CF6]/30 border border-white/[0.08] flex items-center justify-center relative overflow-hidden">
+              <span className="text-[10px] font-extrabold text-white tracking-wider">CREATIVE POST</span>
+            </div>
+            <div className="flex items-center justify-between text-[10px] font-mono px-0.5">
+              <div className="flex items-center gap-1 text-[#F43F5E]">
+                <Heart className="w-3 h-3 fill-current" />
+                <span>Sample</span>
+              </div>
+              <div className="flex items-center gap-1 text-[#A8B1C2]">
+                <MessageCircle className="w-3 h-3" />
+                <span>Preview</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Post 2: Vertical Reel / Story Thumbnail */}
+          <div className="col-span-5 p-2 rounded-xl bg-[#141B2B] border border-white/[0.08] flex flex-col justify-between">
+            <div className="h-20 rounded-lg bg-gradient-to-b from-[#8B5CF6]/30 to-purple-950/60 border border-white/[0.08] flex flex-col items-center justify-center relative">
+              <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-md">
+                <Play className="w-3 h-3 fill-white ml-0.5" />
+              </div>
+              <span className="text-[8px] font-mono text-white/80 mt-1">Reel (9:16)</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-[10px] font-mono text-[#A8B1C2] pt-2 border-t border-white/[0.06]">
+          <span className="text-[#3898FF]">Sample Feed Layouts</span>
+          <span className="text-emerald-400 font-semibold">Sample Layout</span>
+        </div>
+      </div>
+    );
+  }
+
+  // 7. PROJECT PULSE — Performance Marketing & Lead Generation (DISTINCT PERFORMANCE DASHBOARD)
+  return (
+    <div className="relative w-full h-52 sm:h-60 rounded-2xl bg-[#090B12] border border-white/[0.12] p-4 flex flex-col justify-between overflow-hidden shadow-2xl">
+      <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="w-4 h-4 text-emerald-400" />
+          <span className="text-[10px] font-mono font-bold text-[#F5F7FC]">Performance Lead Funnel</span>
+        </div>
+        <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded border border-emerald-500/30 font-bold">
+          Illustrative Data
+        </span>
+      </div>
+
+      {/* Illustrative Performance Dashboard & Funnel */}
+      <div className="my-auto space-y-2.5">
+        <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="p-2 rounded-xl bg-[#141B2B] border border-white/[0.06]">
+            <span className="text-[8px] font-mono text-[#A8B1C2] block">Ad Spend</span>
+            <span className="text-xs font-mono font-bold text-white">₹10,000</span>
+          </div>
+          <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+            <span className="text-[8px] font-mono text-emerald-400 block">Cost / Lead</span>
+            <span className="text-xs font-mono font-bold text-emerald-300">₹245</span>
+          </div>
+          <div className="p-2 rounded-xl bg-[#141B2B] border border-white/[0.06]">
+            <span className="text-[8px] font-mono text-[#A8B1C2] block">Conv. Rate</span>
+            <span className="text-xs font-mono font-bold text-[#3898FF]">5.2%</span>
+          </div>
+        </div>
+
+        {/* Visual Lead Funnel Bars */}
+        <div className="space-y-1.5 pt-1">
+          <div className="flex items-center justify-between text-[9px] font-mono text-[#A8B1C2]">
+            <span>1. Impressions: 250,000</span>
+            <span className="text-white">100%</span>
+          </div>
+          <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-[#3898FF] to-blue-400 w-full rounded-full" />
+          </div>
+
+          <div className="flex items-center justify-between text-[9px] font-mono text-[#A8B1C2]">
+            <span>2. Clicks: 12,500</span>
+            <span className="text-[#3898FF]">5.0%</span>
+          </div>
+          <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-[#3898FF] to-[#8B5CF6] w-[50%] rounded-full" />
+          </div>
+
+          <div className="flex items-center justify-between text-[9px] font-mono text-[#A8B1C2]">
+            <span>3. Qualified Leads: 410</span>
+            <span className="text-emerald-400 font-bold">3.3% Conv.</span>
+          </div>
+          <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <div className="h-full bg-emerald-400 w-[24%] rounded-full" />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between text-[10px] font-mono text-[#A8B1C2] pt-2 border-t border-white/[0.06]">
+        <span>Illustrative Benchmark Model</span>
+        <span className="text-[#3898FF] font-semibold">Attribution Ready</span>
+      </div>
+    </div>
+  );
+};
+
+export const PortfolioSection = ({ featured = false }) => {
+  const [activeCategory, setActiveCategory] = useState("All Capabilities");
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const filteredProjects = activeCategory === "All Capabilities"
+    ? portfolioData
+    : portfolioData.filter((p) => p.category === activeCategory);
+  const displayedProjects = featured ? portfolioData.slice(0, 3) : filteredProjects;
+
+  return (
+    <section id="work" className="relative py-28 md:py-36 border-t border-white/[0.08] overflow-hidden bg-[#090B12]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Updated Section Header with Business-Friendly Language */}
+        <SectionHeader
+          badge={featured ? "SELECTED WORK" : "OUR WORK & CREATIVE SHOWCASE"}
+          badgeVariant="violet"
+          title={featured ? "A Glimpse of What We Create." : "Creative Work. Digital Experiences."}
+          highlight={featured ? "Explore Our Capabilities." : "Smart Solutions."}
+          subtitle={featured ? "A few examples of the creative and digital solutions we can build for businesses." : "Explore illustrative concept work across branding, marketing, websites, applications, and business automation."}
+        />
+
+        {/* Factual Integrity & Non-Disclosure Notice */}
+        <div className="mb-12 p-6 rounded-2xl bg-[#101522] border border-[#3898FF]/30 backdrop-blur-xl flex items-start gap-4 max-w-4xl mx-auto shadow-xl">
+          <ShieldAlert className="w-6 h-6 text-[#3898FF] shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm text-[#A8B1C2] leading-relaxed">
+            <span className="font-bold text-[#F5F7FC]">Transparency & Demonstration Policy:</span> The projects below represent our internally created concept demonstrations and capability benchmarks. In adherence to strict client confidentiality, we do not present fictional client names, fake endorsements, or unverified business performance statistics.
+          </div>
+        </div>
+
+        {/* Category Filters (Responsive High-Contrast Pills) */}
+        {!featured && <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14">
+          {portfolioCategories.map((cat) => {
+            const isActive = activeCategory === cat;
+            const count = cat === "All Capabilities"
+              ? portfolioData.length
+              : portfolioData.filter((p) => p.category === cat).length;
+
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 border ${
+                  isActive
+                    ? 'bg-[#3898FF]/20 text-[#F5F7FC] border-[#3898FF] shadow-[0_0_25px_rgba(56,152,255,0.4)]'
+                    : 'bg-[#101522] text-[#A8B1C2] border-white/[0.08] hover:text-[#F5F7FC] hover:bg-[#141B2B] hover:border-white/20'
+                }`}
+              >
+                <span>{cat}</span>
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                  isActive ? 'bg-[#3898FF] text-white font-bold' : 'bg-white/[0.08] text-[#A8B1C2]'
+                }`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>}
+
+        {/* Project Grid (Preserved 3-Column Desktop Layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayedProjects.map((project) => (
+            <div
+              key={project.id}
+              className="relative rounded-3xl bg-[#141B2B] border border-white/[0.12] hover:border-[#3898FF]/60 hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(56,152,255,0.25)] transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+            >
+              {/* Card Top Visual Mockup */}
+              <div className="p-5 pb-0">
+                <ProjectVisualMockup project={project} />
+              </div>
+
+              {/* Card Content Body */}
+              <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#3898FF] font-bold truncate">
+                      {project.category}
+                    </span>
+                    <Badge variant={project.badge === "Concept Project" ? "blue" : "violet"}>
+                      {project.badge}
+                    </Badge>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-[#F5F7FC] group-hover:text-[#3898FF] transition-colors leading-snug">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-[#A8B1C2] leading-relaxed mt-2.5 line-clamp-3">
+                    {project.summary}
+                  </p>
+                </div>
+
+                {/* Simple action without technical tag clutter */}
+                <div className="pt-4 border-t border-white/[0.08]">
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="w-full py-3 px-4 rounded-xl bg-[#101522] hover:bg-[#3898FF]/20 text-xs font-bold text-[#3898FF] hover:text-[#F5F7FC] border border-white/[0.1] hover:border-[#3898FF] flex items-center justify-center gap-2 transition-all group/btn shadow-sm"
+                  >
+                    <span>Explore This Concept</span>
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {featured && (
+          <div className="mt-12 text-center">
+            <Button to="/work" variant="primary" size="md" icon={ArrowUpRight}>
+              View All Work
+            </Button>
+          </div>
+        )}
+
+        {/* Modal Inspector for Project Details */}
+        {selectedProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+            <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[#141B2B] border border-white/[0.16] p-6 sm:p-9 shadow-2xl space-y-6">
+              
+              {/* Modal Top Bar */}
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <Badge variant={selectedProject.badge === "Concept Project" ? "blue" : "violet"}>
+                      {selectedProject.badge}
+                    </Badge>
+                    <span className="text-xs font-mono font-semibold text-[#3898FF]">
+                      {selectedProject.category}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#F5F7FC]">
+                    {selectedProject.title}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="p-2.5 text-[#A8B1C2] hover:text-[#F5F7FC] rounded-xl bg-white/[0.06] hover:bg-white/[0.12] transition-colors"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Large Project Visual Mockup */}
+              <div className="rounded-2xl overflow-hidden border border-white/[0.08]">
+                <ProjectVisualMockup project={selectedProject} />
+              </div>
+
+              {/* Business-Friendly Detailed Sections */}
+              <div className="space-y-4 text-xs sm:text-sm text-[#A8B1C2] leading-relaxed">
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-wider text-[#F5F7FC] font-bold mb-1.5">
+                    Project Overview
+                  </h4>
+                  <p className="p-4 rounded-xl bg-[#101522] border border-white/[0.08] text-[#F5F7FC]">
+                    {selectedProject.summary}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-wider text-[#A8B1C2] font-bold mb-1.5">
+                    Project Objective
+                  </h4>
+                  <p className="p-4 rounded-xl bg-[#101522] border border-white/[0.08]">
+                    {selectedProject.challenge}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-wider text-[#3898FF] font-bold mb-1.5">
+                    Our Approach & Strategy
+                  </h4>
+                  <p className="p-4 rounded-xl bg-[#3898FF]/10 border border-[#3898FF]/30 text-[#F5F7FC]">
+                    {selectedProject.solution}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-mono text-xs uppercase tracking-wider text-[#F5F7FC] font-bold mb-1.5">
+                    Key Deliverables
+                  </h4>
+                  <ul className="space-y-2 p-4 rounded-xl bg-[#101522] border border-white/[0.08]">
+                    {selectedProject.deliverables.map((item) => (
+                      <li key={item} className="flex items-center gap-2.5 text-xs text-[#F5F7FC]">
+                        <CheckCircle2 className="w-4 h-4 text-[#3898FF] shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Clear Concept / Demonstration Disclosure Notice */}
+              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-[11px] font-mono text-[#A8B1C2] leading-relaxed">
+                <span className="text-[#3898FF] font-bold block mb-0.5">
+                  Concept Demonstration Disclosure:
+                </span>
+                This showcase is an internal demonstration framework created by Navandan Emporium to demonstrate our capabilities without misrepresenting past client experience.
+              </div>
+
+              {/* Modal Bottom CTA */}
+              <div className="pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
+                <span className="text-xs font-mono text-[#A8B1C2]">
+                  {selectedProject.badge} • Concept Preview
+                </span>
+                <Button
+                  to="/contact"
+                  variant="primary"
+                  size="sm"
+                  onClick={() => setSelectedProject(null)}
+                >
+                  Inquire Similar Solution
+                </Button>
+              </div>
+
+            </div>
+          </div>
+        )}
+
+      </div>
+    </section>
+  );
+};

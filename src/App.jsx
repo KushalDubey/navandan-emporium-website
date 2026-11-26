@@ -457,6 +457,9 @@ export function App() {
             {/* 03. Dedicated Portfolio Page */}
             <Route path="/portfolio" element={<PortfolioPage />} />
 
+            {/* 03. Dedicated work Page */}
+            <Route path="/work" element={<PortfolioPage />} />
+
             {/* 04. Dedicated Contact Page */}
             <Route path="/contact" element={<ContactPage />} />
 
@@ -478,8 +481,8 @@ export function App() {
             {/* Friendly fallback for unknown URLs */}
             <Route path="*" element={(
               <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-24">
-                <span className="text-sm font-mono font-bold tracking-widest text-[#3898FF]">404 â€” PAGE NOT FOUND</span>
-                <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold text-[#F5F7FC]">This page isnâ€™t here.</h1>
+                <span className="text-sm font-mono font-bold tracking-widest text-[#3898FF]">404 - PAGE NOT FOUND</span>
+                <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold text-[#F5F7FC]">This page isn't here.</h1>
                 <p className="mt-4 max-w-lg text-[#A8B1C2]">The link may be outdated or the page may have moved. You can return to the homepage or explore our services.</p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-3">
                   <Button to="/" variant="primary">Back to Home</Button>
