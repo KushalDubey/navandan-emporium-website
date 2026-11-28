@@ -7,12 +7,12 @@
   // Official Contact Information
   contactEmail: "navandan.digital@gmail.com",
   emailLink: "mailto:navandan.digital@gmail.com",
-  phone: "+91-7024777327",
-  phoneDisplay: "+91 70247 77327",
-  telLink: "tel:+917024777327",
-  whatsappNumber: "917024777327",
-  whatsappLink: "https://wa.me/917024777327",
-  whatsappChatLink: "https://wa.me/917024777327?text=Hello%20Navandan%20Digital%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
+  phone: "+91-8989267327",
+  phoneDisplay: "+91 89892 67327",
+  telLink: "tel:+918989267327",
+  whatsappNumber: "918989267327",
+  whatsappLink: "https://wa.me/918989267327",
+  whatsappChatLink: "https://wa.me/918989267327?text=Hello%20Navandan%20Digital%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
 
   // Primary Call To Action
   ctaHeadline: "Let's Build Something Great Together.",

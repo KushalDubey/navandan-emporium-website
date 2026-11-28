@@ -206,7 +206,7 @@ export const Navbar = ({ onOpenMobileMenu }) => {
               className="hidden xl:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.045] border border-white/[0.09] text-slate-200 hover:border-[#3898FF]/40 hover:text-white transition-all duration-300 text-xs font-semibold"
             >
               <Phone className="w-4 h-4 text-[#70B5FF]" />
-              +91-7024777327
+              +91-8989267327
             </a>
 
             <Link

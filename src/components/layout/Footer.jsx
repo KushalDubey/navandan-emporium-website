@@ -83,7 +83,7 @@ export const Footer = () => {
                 <span className="w-10 h-10 shrink-0 flex items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/15 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
                   <MessageSquare className="w-4 h-4" />
                 </span>
-                <span>WhatsApp: +91-7024777327</span>
+                <span>WhatsApp: +91-8989267327</span>
               </a>
             </div>
           </div>

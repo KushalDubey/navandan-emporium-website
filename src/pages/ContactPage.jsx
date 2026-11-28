@@ -10,7 +10,7 @@ const contactMethods = [
     title: 'WhatsApp Direct',
     label: 'INSTANT MESSAGING',
     description: 'Message us to discuss your project, requirements or questions.',
-    value: '+91-7024777327',
+    value: '+91-8989267327',
     action: 'Open WhatsApp',
     href: siteConfig.whatsappChatLink,
     icon: MessageSquare,
